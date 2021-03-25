@@ -13,7 +13,6 @@
           Security Conference
         </p>
       </section>
-      <!-- <div class="footer__contact-wrapper"> -->
       <section class="footer__contact mb-3">
         <h3 class="footer__heading smaller-lh">Contact us</h3>
         <span class="footer__contact-info smaller-lh"> (907) 290-7660 </span>
@@ -43,7 +42,6 @@
           </a>
         </li>
       </ul>
-      <!-- </div> -->
     </div>
     <div class="footer__copy-wrapper">
       <section class="footer__policies">
