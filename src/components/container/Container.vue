@@ -18,8 +18,22 @@ export default {
     Footer,
   },
   data: () => ({}),
-  computed: {},
-  methods: {},
+  computed: {
+    hash() {
+      return this.$route.hash.split("#")[1];
+    },
+  },
+  mounted() {
+    this.scrollToSection();
+  },
+  methods: {
+    scrollToSection(hash) {
+      if (hash) {
+        const elem = document.getElementById(hash);
+        elem.scrollIntoView({ behavior: "smooth" });
+      }
+    },
+  },
 };
 </script>
 
