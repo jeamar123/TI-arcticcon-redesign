@@ -1,19 +1,16 @@
 <template>
-  <div class="home-page"></div>
+  <div class="home-page">
+    <Hero />
+  </div>
 </template>
 
 <script>
+import Hero from "@/components/home/Hero";
+
 export default {
   name: "Home",
+  components: {
+    Hero,
+  },
 };
 </script>
-
-<style lang="scss">
-@import "@/assets/scss/_variables";
-
-.home-page {
-  width: 100%;
-  height: 100vh;
-  background-image: url("../assets/img/ac-home-bg.jpg");
-}
-</style>
