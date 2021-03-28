@@ -19,6 +19,7 @@ export default {
 @import "@/assets/scss/_variables";
 
 .button {
+  display: block;
   padding: 0;
   border: 4px solid $black;
   background-color: $black;

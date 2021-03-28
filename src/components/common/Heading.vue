@@ -32,14 +32,10 @@ export default {
 @import "@/assets/scss/_variables";
 
 .heading {
-  // $self: &;
   font-weight: bold;
   font-family: $sarabun;
   font-weight: $sarabunBold;
   letter-spacing: 0.05em;
-  // font-size: 32px;
-  // line-height: 44px;
-  // letter-spacing: 0.02em;
   color: $black;
   text-decoration: underline;
 
@@ -47,43 +43,40 @@ export default {
     text-align: left;
   }
 
+  &--alter {
+    text-align: center;
+  }
+
   &--h1 {
-    font-size: 2.2rem;
+    font-size: 2.25rem;
     line-height: 1.2;
   }
 
-  // &--h3 {
-  //   font-size: 24px;
-  //   line-height: 33px;
-  // }
-
-  // &--h4 {
-  //   font-size: 18px;
-  //   line-height: 25px;
-  // }
-
-  // @media (min-width: $media-sm) {
-  //   font-size: 56px;
-  //   line-height: 76px;
-
-  //   &--h3 {
-  //     font-size: 32px;
-  //     line-height: 44px;
-  //   }
-
-  //   &--h4 {
-  //     font-size: 24px;
-  //     line-height: 33px;
-  //   }
-  // }
+  &--h2 {
+    font-size: 2rem;
+    line-height: 1.5;
+  }
 
   @media (min-width: $media-sm) {
-    font-size: 3.1rem;
+    &--h1 {
+      font-size: 3.1rem;
+    }
+
+    &--h2 {
+      font-size: 2.7rem;
+      line-height: 1.2;
+    }
+
+    &--alter {
+      text-align: left;
+    }
   }
 
   @media (min-width: $media-lg) {
-    font-size: 4.75rem;
-    line-height: 1.1;
+    &--h1 {
+      font-size: 4.75rem;
+      line-height: 1.1;
+    }
   }
 }
 </style>
