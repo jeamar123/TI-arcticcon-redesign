@@ -102,7 +102,7 @@ export default {
   }
 
   @media (min-width: $media-sm) {
-    width: 320px;
+    width: 50%;
     min-height: calc(100vh - 108px);
 
     &::before {
@@ -120,8 +120,12 @@ export default {
     }
   }
 
+  @media (min-width: $media-md) {
+    width: 57%;
+  }
+
   @media (min-width: $media-lg) {
-    width: 654px;
+    width: 50%;
     min-height: calc(100vh - 124px);
 
     &::before {
