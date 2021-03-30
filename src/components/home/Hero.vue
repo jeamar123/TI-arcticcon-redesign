@@ -51,7 +51,6 @@ export default {
 
   position: relative;
   padding-top: 260px;
-  padding-bottom: 32px;
 
   &::before {
     content: "";

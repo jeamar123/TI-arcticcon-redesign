@@ -43,6 +43,10 @@ export default {
     text-align: left;
   }
 
+  &--center {
+    text-align: center;
+  }
+
   &--alter {
     text-align: center;
   }

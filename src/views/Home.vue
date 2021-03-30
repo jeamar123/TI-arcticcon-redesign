@@ -3,6 +3,7 @@
     <Hero />
     <About />
     <Apply />
+    <Sponsors />
   </div>
 </template>
 
@@ -10,6 +11,7 @@
 import Hero from "@/components/home/Hero";
 import About from "@/components/home/About";
 import Apply from "@/components/home/Apply";
+import Sponsors from "@/components/home/Sponsors";
 
 export default {
   name: "Home",
@@ -17,6 +19,7 @@ export default {
     Hero,
     About,
     Apply,
+    Sponsors,
   },
 };
 </script>

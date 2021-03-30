@@ -45,7 +45,7 @@ export default {
 .bg-section {
   $self: &;
 
-  padding-bottom: 32px;
+  padding-top: 32px;
   background-clip: content-box;
   background-image: linear-gradient(to bottom, $white 60px, $light-gray 60px);
 
