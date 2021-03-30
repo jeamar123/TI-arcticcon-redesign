@@ -83,6 +83,7 @@ export default {
 
 .footer {
   position: relative;
+  padding-top: 120px;
 
   &::after {
     content: "";
@@ -171,6 +172,8 @@ export default {
   }
 
   @media (min-width: $media-sm) {
+    padding-top: 270px;
+
     &__breef-wrapper {
       display: flex;
       justify-content: space-between;

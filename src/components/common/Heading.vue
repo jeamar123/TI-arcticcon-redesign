@@ -61,6 +61,11 @@ export default {
     line-height: 1.5;
   }
 
+  &--h3 {
+    font-size: 1.3rem;
+    line-height: 1.25;
+  }
+
   @media (min-width: $media-sm) {
     &--h1 {
       font-size: 3.1rem;
@@ -69,6 +74,10 @@ export default {
     &--h2 {
       font-size: 2.7rem;
       line-height: 1.2;
+    }
+
+    &--h3 {
+      font-size: 2rem;
     }
 
     &--alter {
@@ -80,6 +89,11 @@ export default {
     &--h1 {
       font-size: 4.75rem;
       line-height: 1.1;
+    }
+
+    &--h3 {
+      font-size: 3rem;
+      line-height: 1.4;
     }
   }
 }

@@ -1,5 +1,5 @@
 <template>
-  <button class="button">
+  <button class="button" :class="{ 'button--empty': isEmpty }">
     <slot />
   </button>
 </template>
@@ -7,7 +7,12 @@
 <script>
 export default {
   name: "Button",
-  props: {},
+  props: {
+    isEmpty: {
+      type: Boolean,
+      default: false,
+    },
+  },
   components: {},
   data: () => ({}),
   computed: {},
@@ -40,7 +45,21 @@ export default {
   }
 
   &:active {
-    opacity: 0.6s;
+    opacity: 0.6;
+  }
+
+  &--empty {
+    height: 40px;
+    background-color: transparent;
+    color: $black;
+    border: 2px solid $black;
+    font-size: 1rem;
+    line-height: 1.3;
+
+    &:hover {
+      background-color: $black;
+      color: $white;
+    }
   }
 }
 </style>
