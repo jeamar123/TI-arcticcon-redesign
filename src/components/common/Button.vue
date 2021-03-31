@@ -61,5 +61,11 @@ export default {
       color: $white;
     }
   }
+
+  @media (min-width: $media-sm) {
+    &--empty {
+      height: 56px;
+    }
+  }
 }
 </style>

@@ -5,7 +5,7 @@
       :alt="talk.author"
       class="talk__image"
     />
-    <div>
+    <div class="talk__wrapper">
       <div class="talk__breef">
         <p class="talk__author">
           {{ talk.author }}
@@ -18,7 +18,7 @@
       <Heading type="h3" class="talk__title">
         {{ talk.title }}
       </Heading>
-      <p class="talk__body" :class="{ 'mb-4': !isTextFull }">
+      <p class="talk__body" :class="{ 'talk__body--closed': !isTextFull }">
         {{ isTextFull ? talk.body : shortenText(talk.body, 150) }}
       </p>
       <Button
@@ -64,6 +64,8 @@ export default {
 @import "@/assets/scss/_variables";
 
 .talk {
+  position: relative;
+
   &__image {
     height: 210px;
     width: 100%;
@@ -106,8 +108,158 @@ export default {
     margin-bottom: 8px;
   }
 
+  &__body {
+    &--closed {
+      margin-bottom: 16px;
+    }
+  }
+
   &__button {
     width: 100%;
+  }
+
+  @media (min-width: $media-xs) {
+    &__image {
+      height: 240px;
+      width: 70%;
+    }
+
+    &__time {
+      position: absolute;
+      top: 88px;
+      right: 0;
+      width: 30%;
+      align-items: flex-end;
+
+      &::after {
+        width: calc(100% + 30px);
+      }
+    }
+
+    &__wrapper {
+      display: flex;
+      flex-flow: column;
+    }
+
+    &__title {
+      order: 1;
+      width: 70%;
+    }
+
+    &__breef {
+      order: 2;
+    }
+
+    &__body {
+      order: 3;
+    }
+
+    &__button {
+      order: 4;
+      width: 50%;
+    }
+  }
+
+  @media (min-width: $media-sm) {
+    display: flex;
+    align-items: center;
+
+    &__image {
+      height: 288px;
+      width: 208px;
+      margin-right: 140px;
+      flex-shrink: 0;
+      flex-grow: 0;
+    }
+
+    &__title {
+      width: 100%;
+    }
+
+    &__breef {
+      position: relative;
+      margin-bottom: 8px;
+    }
+
+    &__author {
+      margin-left: 16px;
+    }
+
+    &__time {
+      top: 50%;
+      transform: translateY(-50%);
+      left: -186px;
+      width: 150px;
+
+      &::after {
+        width: 150px;
+        right: -16px;
+      }
+    }
+
+    &__button {
+      width: 65%;
+    }
+  }
+
+  @media (min-width: $media-md) {
+    &__image {
+      height: 408px;
+      width: 296px;
+      margin-right: 176px;
+    }
+
+    &__title {
+      margin-bottom: 32px;
+    }
+
+    &__time {
+      left: -246px;
+      width: 240px;
+      align-items: center;
+
+      &::after {
+        width: 240px;
+        right: 0;
+      }
+    }
+
+    &__body {
+      &--closed {
+        margin-bottom: 58px;
+      }
+    }
+
+    &__button {
+      width: 50%;
+    }
+  }
+
+  @media (min-width: $media-lg) {
+    &__image {
+      height: 504px;
+      width: 368px;
+      margin-right: 196px;
+    }
+
+    &__breef {
+      margin-bottom: 14px;
+    }
+
+    &__time {
+      font-size: 1.3rem;
+      line-height: 2.5;
+    }
+
+    &__body {
+      &--closed {
+        margin-bottom: 32px;
+      }
+    }
+
+    &__button {
+      width: 60%;
+    }
   }
 }
 </style>
