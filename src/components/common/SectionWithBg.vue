@@ -4,6 +4,7 @@
     :class="[
       `bg-section--heading-${headingPosition}`,
       `bg-section--py-${paddingY}`,
+      { 'bg-section--single-line-heading': singleLineHeading },
     ]"
   >
     <Heading text-align="alter" class="bg-section__heading">
@@ -24,6 +25,10 @@ export default {
     headingPosition: {
       type: String,
       default: "right",
+    },
+    singleLineHeading: {
+      type: Boolean,
+      default: false,
     },
     paddingY: {
       type: String,
@@ -57,6 +62,10 @@ export default {
     #{$self}__text {
       padding: 0 24px 16px 24px;
     }
+  }
+
+  &--single-line-heading {
+    padding-top: 0;
   }
 
   @media (min-width: $media-sm) {
