@@ -24,7 +24,7 @@
         {{ label }}
       </label>
     </div>
-    <transition name="slide-error">
+    <transition name="fade">
       <div v-if="error" class="input__error">
         {{ error }}
       </div>
@@ -141,20 +141,19 @@ export default {
 
   &--error {
     #{$self}__label {
-      top: -12px;
+      top: -10px;
       opacity: 1;
       color: $error-red;
     }
 
     #{$self}__control {
       border-color: $error-red;
-      // box-shadow: 0 0 2px 0 $error-red;
     }
   }
 
   &--non-empty #{$self}__label,
   &__control:focus ~ #{$self}__label {
-    top: -12px;
+    top: -10px;
     opacity: 1;
     transition: top 0.2s 0.1s, opacity 0.3s, background-color 0.2s 0.1s;
   }

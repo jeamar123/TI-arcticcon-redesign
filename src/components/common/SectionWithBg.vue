@@ -4,7 +4,10 @@
     :class="[
       `bg-section--heading-${headingPosition}`,
       `bg-section--py-${paddingY}`,
-      { 'bg-section--single-line-heading': singleLineHeading },
+      {
+        'bg-section--single-line-heading': singleLineHeading,
+        'bg-section--heading-top': headingTop,
+      },
     ]"
   >
     <Heading text-align="alter" class="bg-section__heading">
@@ -27,6 +30,10 @@ export default {
       default: "right",
     },
     singleLineHeading: {
+      type: Boolean,
+      default: false,
+    },
+    headingTop: {
       type: Boolean,
       default: false,
     },
@@ -83,6 +90,14 @@ export default {
       #{$self}__text {
         padding-top: 88px;
         padding-bottom: 88px;
+      }
+    }
+
+    &--heading-top {
+      align-items: flex-start;
+
+      #{$self}__heading {
+        padding-top: 88px;
       }
     }
 

@@ -73,6 +73,10 @@ export default {
         name: "Tickets",
         path: "/#tickets",
       },
+      {
+        name: "Login",
+        path: "/login",
+      },
     ],
   }),
   computed: {
