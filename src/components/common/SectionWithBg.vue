@@ -7,6 +7,7 @@
       {
         'bg-section--single-line-heading': singleLineHeading,
         'bg-section--heading-top': headingTop,
+        'bg-section--no-shrink-heading': noShrinkHeading,
       },
     ]"
   >
@@ -23,7 +24,7 @@
 import Heading from "@/components/common/Heading";
 
 export default {
-  name: "About",
+  name: "SectionWithBg",
   props: {
     headingPosition: {
       type: String,
@@ -34,6 +35,10 @@ export default {
       default: false,
     },
     headingTop: {
+      type: Boolean,
+      default: false,
+    },
+    noShrinkHeading: {
       type: Boolean,
       default: false,
     },
@@ -73,6 +78,12 @@ export default {
 
   &--single-line-heading {
     padding-top: 0;
+  }
+
+  &--no-shrink-heading {
+    #{$self}__heading {
+      flex-shrink: 0;
+    }
   }
 
   @media (min-width: $media-sm) {

@@ -1,15 +1,15 @@
 <template>
-  <LoginForm />
+  <SignInForm />
 </template>
 
 <script>
-import LoginForm from "@/components/auth/LoginForm";
+import SignInForm from "@/components/auth/SignInForm";
 
 export default {
-  name: "Login",
+  name: "SignIn",
   props: {},
   components: {
-    LoginForm,
+    SignInForm,
   },
   data: () => ({}),
   computed: {},
