@@ -7,15 +7,3 @@
 .fade-leave-to {
   opacity: 0;
 }
-
-// slide-error
-.slide-error-enter-active,
-.slide-error-leave-active {
-  height: 18px;
-  transition: height 0.2s;
-}
-
-.slide-error-leave-from,
-.slide-error-enter-to {
-  height: 0;
-}

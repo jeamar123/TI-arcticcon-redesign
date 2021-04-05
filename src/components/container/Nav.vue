@@ -1,5 +1,11 @@
 <template>
-  <nav class="nav padding-x" :class="{ 'nav--opened': isMobNavOpened }">
+  <nav
+    class="nav padding-x"
+    :class="{
+      'nav--opened': isMobNavOpened,
+      'nav--not-home': !isMainPage,
+    }"
+  >
     <router-link to="/">
       <picture>
         <source media="(max-width: 719px)" :srcset="logoPath" />
@@ -67,11 +73,19 @@ export default {
         name: "Tickets",
         path: "/#tickets",
       },
+      {
+        name: "Login",
+        path: "/login",
+      },
     ],
   }),
   computed: {
+    isMainPage() {
+      return this.$route.fullPath === "/";
+    },
+
     logoPath() {
-      return this.isMobNavOpened
+      return this.isMobNavOpened || !this.isMainPage
         ? require("@/assets/img/ac-logo.png")
         : require("@/assets/img/ac-logo-white.png");
     },
@@ -97,9 +111,8 @@ export default {
   justify-content: space-between;
   align-items: center;
 
-  &--opened {
-    background-color: $light-gray;
-
+  &--opened,
+  &--not-home {
     #{$self}__toggler {
       &::before,
       &::after,
@@ -107,6 +120,10 @@ export default {
         background-color: $black;
       }
     }
+  }
+
+  &--opened {
+    background-color: $light-gray;
   }
 
   &__logo {

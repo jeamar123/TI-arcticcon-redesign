@@ -4,6 +4,11 @@
     :class="[
       `bg-section--heading-${headingPosition}`,
       `bg-section--py-${paddingY}`,
+      {
+        'bg-section--single-line-heading': singleLineHeading,
+        'bg-section--heading-top': headingTop,
+        'bg-section--no-shrink-heading': noShrinkHeading,
+      },
     ]"
   >
     <Heading text-align="alter" class="bg-section__heading">
@@ -19,11 +24,23 @@
 import Heading from "@/components/common/Heading";
 
 export default {
-  name: "About",
+  name: "SectionWithBg",
   props: {
     headingPosition: {
       type: String,
       default: "right",
+    },
+    singleLineHeading: {
+      type: Boolean,
+      default: false,
+    },
+    headingTop: {
+      type: Boolean,
+      default: false,
+    },
+    noShrinkHeading: {
+      type: Boolean,
+      default: false,
     },
     paddingY: {
       type: String,
@@ -59,6 +76,16 @@ export default {
     }
   }
 
+  &--single-line-heading {
+    padding-top: 0;
+  }
+
+  &--no-shrink-heading {
+    #{$self}__heading {
+      flex-shrink: 0;
+    }
+  }
+
   @media (min-width: $media-sm) {
     padding-bottom: 0;
     padding-top: 136px;
@@ -74,6 +101,14 @@ export default {
       #{$self}__text {
         padding-top: 88px;
         padding-bottom: 88px;
+      }
+    }
+
+    &--heading-top {
+      align-items: flex-start;
+
+      #{$self}__heading {
+        padding-top: 88px;
       }
     }
 
