@@ -16,10 +16,24 @@
     </template>
     <template #error>
       <Error>
-        <template #heading> Incorrect username or password </template>
+        <template #heading> {{ errorHeader }} </template>
         <template #body>
-          Double-check your username and password. You may have used social
-          media to login.
+          <template v-if="isWrongPass">
+            Double-check your username and password. You may have used social
+            media to login
+          </template>
+          <template v-else-if="isUnconfirmed">
+            Check your email for verification link.
+            <button class="error__link" @click="resendVerification">
+              Click here</button
+            >, if you haven’t verification link.
+          </template>
+          <template v-else-if="isUnknownErr || isEmailError">
+            Please try again or contact us at
+            <a href="mailto:mailto:info@arctic-con.com" class="error__link">
+              mailto:info@arctic-con.com
+            </a>
+          </template>
         </template>
       </Error>
     </template>
@@ -38,6 +52,7 @@ import {
   validateForm,
   clearError,
 } from "@/assets/js/validation";
+import { mapGetters, mapActions } from "vuex";
 import AuthContainer from "./AuthContainer";
 import Input from "@/components/common/Input";
 import Link from "@/components/common/Link";
@@ -67,11 +82,28 @@ export default {
         label: "Password",
       },
     },
-    hasError: false,
     isFormSending: false,
+    hasError: false,
+    isWrongPass: false,
+    isUnconfirmed: false,
+    isUnknownErr: false,
+    isEmailError: false,
   }),
-  computed: {},
+  computed: {
+    ...mapGetters(["currentBackPath"]),
+    errorHeader() {
+      let text = "Seems there was an issue";
+
+      if (this.isWrongPass) text = "Incorrect username or password";
+      if (this.isUnconfirmed) text = "Account hasn’t been confirmed";
+      if (this.isEmailError)
+        text = "Seems there was an issue resending verification link";
+
+      return text;
+    },
+  },
   methods: {
+    ...mapActions(["signIn", "resendSignUp"]),
     transformForm,
     validateField,
     validateForm,
@@ -80,6 +112,44 @@ export default {
     submitLogin() {
       const isValid = this.validateForm(this.form);
       if (!isValid) return;
+
+      this.isFormSending = true;
+      this.signIn(this.transformForm(this.form))
+        .then(() => {
+          this.clearErrors();
+          this.$router.push(this.currentBackPath);
+        })
+        .catch((err) => {
+          if (err.code) {
+            if (err.code === "NotAuthorizedException") this.isWrongPass = true;
+            else if (err.code === "UserNotConfirmedException")
+              this.isUnconfirmed = true;
+          } else {
+            this.isUnknownErr = true;
+          }
+
+          this.hasError = true;
+        })
+        .finally(() => {
+          this.isFormSending = false;
+        });
+    },
+    clearErrors() {
+      if (this.hasError) {
+        this.hasError = false;
+
+        if (this.isWrongPass) this.isWrongPass = false;
+        if (this.isUnconfirmed) this.isUnconfirmed = false;
+        if (this.isUnknownErr) this.isUnknownErr = false;
+        if (this.isEmailError) this.isEmailError = false;
+      }
+    },
+    resendVerification() {
+      this.clearErrors();
+      this.resendSignUp().catch(() => {
+        this.hasError = true;
+        this.isEmailError = true;
+      });
     },
   },
 };

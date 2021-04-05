@@ -33,5 +33,27 @@ export default {
     font-weight: $sansBold;
     color: $error-red;
   }
+
+  &__link {
+    border: none;
+    background: transparent;
+    padding: 0;
+    color: $black;
+    text-decoration: underline;
+    cursor: pointer;
+    transition: text-decoration 0.3s, opacity 0.3s;
+
+    &:hover {
+      text-decoration: none;
+    }
+
+    &:active {
+      opacity: 0.6;
+    }
+
+    &:focus {
+      outline: none;
+    }
+  }
 }
 </style>

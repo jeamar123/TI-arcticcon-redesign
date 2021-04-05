@@ -45,9 +45,30 @@
     </div>
     <div class="footer__copy-wrapper">
       <section class="footer__policies">
-        <Link is-smaller class="footer__policy-link"> Privacy Policy </Link>
-        <Link is-smaller class="footer__policy-link"> Terms of service </Link>
-        <Link is-smaller class="footer__policy-link"> Cookie Policy </Link>
+        <Link
+          link="/privacy-policy"
+          target="_blank"
+          is-smaller
+          class="footer__policy-link"
+        >
+          Privacy Policy
+        </Link>
+        <Link
+          link="/terms-of-service"
+          target="_blank"
+          is-smaller
+          class="footer__policy-link"
+        >
+          Terms of service
+        </Link>
+        <Link
+          link="/cookie-policy"
+          target="_blank"
+          is-smaller
+          class="footer__policy-link"
+        >
+          Cookie Policy
+        </Link>
       </section>
       <p class="footer__copy smaller-lh">Copyright ©2020 All rights reserved</p>
     </div>

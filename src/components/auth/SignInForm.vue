@@ -33,8 +33,8 @@
       <br />
       By clicking Sign Up, you are indicating that you have read and acknowledge
       the
-      <Link link="/terms-of-service">Terms of Service</Link> and
-      <Link link="/privacy-policy">Privacy Notice</Link>.
+      <Link link="/terms-of-service" target="_blank">Terms of Service</Link> and
+      <Link link="/privacy-policy" target="_blank">Privacy Notice</Link>.
       <!-- Also you can use social media for sign up to conference -->
     </template>
   </AuthContainer>
