@@ -1,6 +1,8 @@
 <template>
   <div class="sponsor-pkgs padding-x">
-    <Heading type="h3" text-align="alter"> Select preferred package </Heading>
+    <Heading type="h3" text-align="alter" class="sponsor-pkgs__title">
+      Select preferred package
+    </Heading>
     <div class="sponsor-pkgs__wrapper">
       <SponsorCardBreef
         v-for="pkg in packages"
@@ -9,12 +11,20 @@
         class="sponsor-pkgs__package"
       />
     </div>
+
+    <SponsorCardFull
+      v-for="pkg in packages"
+      :key="pkg.name"
+      :pkg="pkg"
+      class="sponsor-pkgs__package-full"
+    />
   </div>
 </template>
 
 <script>
 import Heading from "@/components/common/Heading";
 import SponsorCardBreef from "./SponsorCardBreef";
+import SponsorCardFull from "./SponsorCardFull";
 
 export default {
   name: "SponsorPackages",
@@ -27,6 +37,7 @@ export default {
   components: {
     Heading,
     SponsorCardBreef,
+    SponsorCardFull,
   },
   data: () => ({}),
   computed: {},
@@ -40,12 +51,8 @@ export default {
 .sponsor-pkgs {
   padding-top: 35px;
 
-  &__wrapper {
-    padding-top: 24px;
-  }
-
-  &__package {
-    margin-bottom: 32px;
+  &__title {
+    margin-bottom: 24px;
   }
 
   @media (min-width: $media-xs) {
@@ -62,6 +69,10 @@ export default {
 
     &__wrapper {
       grid-gap: 24px;
+    }
+
+    &__title {
+      margin-bottom: 88px;
     }
   }
 
