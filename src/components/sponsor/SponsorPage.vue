@@ -13,6 +13,9 @@
     <transition name="fade">
       <SponsorPackages :packages="packages" />
     </transition>
+    <transition name="fade">
+      <SpecialtyPackages :packages="specialties" />
+    </transition>
   </div>
 </template>
 
@@ -21,6 +24,7 @@ import { mapActions } from "vuex";
 import FormSelectedData from "@/components/common/FormSelectedData";
 import SponsorForm from "./SponsorForm";
 import SponsorPackages from "./SponsorPackages";
+import SpecialtyPackages from "./SpecialtyPackages";
 
 export default {
   name: "SponsorComponent",
@@ -29,6 +33,7 @@ export default {
     FormSelectedData,
     SponsorForm,
     SponsorPackages,
+    SpecialtyPackages,
   },
   data: () => ({
     sponsorInfo: {},
