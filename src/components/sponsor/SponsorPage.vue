@@ -7,13 +7,19 @@
     <transition name="fade">
       <FormSelectedData
         v-if="isFormFilled || isPackageSelected"
-        :data="formData"
-      />
+        :data="selectedData"
+      >
+        <template #policy v-if="isFormFilled && isPackageSelected">
+          By clicking Next, you are indicating that you have read and
+          acknowledge the Terms of Service and Privacy Notice.
+        </template>
+      </FormSelectedData>
     </transition>
     <transition name="fade">
       <SponsorPackages
         v-if="isFormFilled && !isPackageSelected"
         :packages="packages"
+        @select-package="selectPackage"
       />
     </transition>
     <transition name="fade">
@@ -45,7 +51,7 @@ export default {
     sponsorInfo: {},
     packages: [],
     specialties: [],
-    formData: [
+    selectedData: [
       {
         title: "Sponsor information",
         name: "Test",
@@ -78,13 +84,17 @@ export default {
     },
     goToPackages(formData) {
       this.isFormFilled = true;
-      this.formData = [
-        ...this.formData,
+      this.selectedData = [
+        ...this.selectedData,
         {
           ...formData,
           title: "Sponsor information",
         },
       ];
+    },
+    selectPackage(pkg) {
+      this.isPackageSelected = true;
+      this.selectedData = [...this.selectedData, { ...pkg }];
     },
   },
 };

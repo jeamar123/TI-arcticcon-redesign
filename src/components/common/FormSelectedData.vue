@@ -1,26 +1,34 @@
 <template>
   <div class="selected-data">
-    <section
-      v-for="item in data"
-      :key="item.title"
-      class="selected-data__section"
-    >
-      <template v-for="(field, name) in item" :key="name">
-        <h4 v-if="name === 'title'" class="selected-data__heading">
-          {{ field }}
-        </h4>
-        <Link
-          v-if="field.includes('http')"
-          :link="field"
-          class="selected-data__link"
-        >
-          {{ field.split("://")[1] }}
-        </Link>
-        <p v-if="!field.includes('http') && name !== 'title'">
-          {{ field }}
-        </p>
-      </template>
-    </section>
+    <transition-group name="fade">
+      <section
+        v-for="item in data"
+        :key="item.title"
+        class="selected-data__section"
+      >
+        <template v-for="(field, name) in item" :key="name">
+          <h4 v-if="name === 'title'" class="selected-data__heading">
+            {{ field }}
+          </h4>
+          <Link
+            v-else-if="field.includes('http')"
+            :link="field"
+            class="selected-data__link"
+          >
+            {{ field.split("://")[1] }}
+          </Link>
+          <p v-else-if="name === 'price'" class="selected-data__price">
+            {{ field }}
+          </p>
+          <p v-else>
+            {{ field }}
+          </p>
+        </template>
+      </section>
+      <div v-if="$slots.policy" key="policy" class="selected-data__section">
+        <slot name="policy" />
+      </div>
+    </transition-group>
   </div>
 </template>
 
@@ -78,6 +86,13 @@ export default {
     color: inherit;
   }
 
+  &__price {
+    font-family: $sarabun;
+    font-size: 1.3rem;
+    line-height: 1.5;
+    color: $black;
+  }
+
   @media (min-width: $media-sm) {
     position: absolute;
     top: 0;
@@ -95,6 +110,10 @@ export default {
       width: 232px;
       height: 100vh;
       background-color: $light-gray;
+    }
+
+    &__section {
+      padding-bottom: 50px;
     }
 
     &__heading {

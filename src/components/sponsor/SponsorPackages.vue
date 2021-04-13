@@ -11,7 +11,10 @@
       :current-slide="selectedPackage"
     >
       <Slide v-for="pkg in packages" :key="pkg.name">
-        <SponsorCardFull :pkg="pkg" />
+        <SponsorCardFull
+          :pkg="pkg"
+          @select-package="$emit('select-package', $event)"
+        />
       </Slide>
       <template #addons>
         <Navigation />
@@ -48,6 +51,7 @@ export default {
       default: () => [],
     },
   },
+  emits: ["select-package"],
   components: {
     Heading,
     SponsorCardBreef,

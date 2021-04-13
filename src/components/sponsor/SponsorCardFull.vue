@@ -20,7 +20,9 @@
           <p class="sponsor-full__price">$ {{ pkg.price }}</p>
         </div>
         <div class="sponsor-full__button-wrapper">
-          <Button is-empty class="sponsor-full__button"> select </Button>
+          <Button is-empty class="sponsor-full__button" @click="selectPackage">
+            select
+          </Button>
           <p class="sponsor-full__quantity">{{ pkg.sponsor }} available</p>
         </div>
       </div>
@@ -51,6 +53,7 @@ export default {
       default: () => ({}),
     },
   },
+  emits: ["select-package"],
   components: {
     Button,
     Carousel,
@@ -63,6 +66,12 @@ export default {
   methods: {
     getImgPath(level) {
       return require(`../../assets/img/sponsor-${level.toLowerCase()}.jpg`);
+    },
+    selectPackage() {
+      this.$emit("select-package", {
+        title: `${this.pkg.name} package`,
+        price: `$ ${this.pkg.price}`,
+      });
     },
   },
 };
@@ -243,51 +252,6 @@ export default {
 
     &__button-wrapper {
       width: 35%;
-    }
-  }
-
-  @media (min-width: $media-md) {
-    &__image-wrapper {
-      display: flex;
-      align-items: flex-end;
-      margin-bottom: 32px;
-    }
-
-    &__image {
-      height: 328px;
-      width: 444px;
-      margin-right: 16px;
-      margin-bottom: 0;
-      flex-shrink: 0;
-    }
-
-    &__title-row {
-      flex-flow: column;
-      margin-bottom: 0;
-    }
-
-    &__button-wrapper {
-      width: 135px;
-    }
-
-    &__quantity {
-      line-height: 0.8;
-      padding-top: 16px;
-      text-align: left;
-    }
-
-    &__heading-wrapper {
-      margin-bottom: 95px;
-      padding-left: 0;
-    }
-
-    &__heading {
-      margin-bottom: 16px;
-
-      &::before {
-        top: 90px;
-        left: 0;
-      }
     }
   }
 }
