@@ -11,10 +11,16 @@
       />
     </transition>
     <transition name="fade">
-      <SponsorPackages :packages="packages" />
+      <SponsorPackages
+        v-if="isFormFilled && !isPackageSelected"
+        :packages="packages"
+      />
     </transition>
     <transition name="fade">
-      <SpecialtyPackages :packages="specialties" />
+      <SpecialtyPackages
+        v-if="isFormFilled && isPackageSelected"
+        :packages="specialties"
+      />
     </transition>
   </div>
 </template>

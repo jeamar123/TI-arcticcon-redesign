@@ -41,6 +41,7 @@ export default {
 
 .sponsor-breef {
   cursor: pointer;
+  padding: 0 8px;
 
   &__image {
     width: 100%;

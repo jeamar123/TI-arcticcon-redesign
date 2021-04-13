@@ -1,11 +1,19 @@
 <template>
   <article class="sponsor-full">
     <div class="sponsor-full__image-wrapper">
-      <img
-        :src="getImgPath(pkg.name)"
-        :alt="`${pkg.name} sponsorship level`"
-        class="sponsor-full__image"
-      />
+      <Carousel :items-to-show="1">
+        <Slide v-for="slide in 10" :key="slide">
+          <img
+            :src="getImgPath(pkg.name)"
+            :alt="`${pkg.name} sponsorship level`"
+            class="sponsor-full__image"
+          />
+        </Slide>
+        <template #addons>
+          <Navigation />
+          <Pagination />
+        </template>
+      </Carousel>
       <div class="sponsor-full__title-row">
         <div class="sponsor-full__heading-wrapper">
           <h4 class="sponsor-full__heading">{{ pkg.name }} package</h4>
@@ -31,6 +39,8 @@
 </template>
 
 <script>
+import "vue3-carousel/dist/carousel.css";
+import { Carousel, Slide, Pagination, Navigation } from "vue3-carousel";
 import Button from "@/components/common/Button";
 
 export default {
@@ -43,6 +53,10 @@ export default {
   },
   components: {
     Button,
+    Carousel,
+    Slide,
+    Pagination,
+    Navigation,
   },
   data: () => ({}),
   computed: {},
@@ -126,6 +140,61 @@ export default {
       color: $black;
       font-weight: $sansBold;
       margin-right: 16px;
+    }
+  }
+
+  &__image-wrapper {
+    .carousel__prev,
+    .carousel__next {
+      min-width: 32px !important;
+      height: 32px !important;
+      padding: 0 !important;
+      background-color: rgba($light-gray, 0.4) !important;
+      background-image: none !important;
+      background-position: unset !important;
+      top: 50% !important;
+      transform: translateY(-50%) !important;
+      transition: background-color 0.3s;
+      z-index: 100;
+
+      &::before,
+      &::after {
+        display: none;
+      }
+
+      svg {
+        display: block !important;
+        fill: $gray;
+        transition: transform 0.3s;
+      }
+
+      &:hover {
+        background-color: rgba($light-gray, 0.7) !important;
+
+        svg {
+          transform: scale(1.2);
+        }
+      }
+    }
+
+    .carousel__pagination {
+      padding-left: 0;
+      position: absolute;
+      top: 90%;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .carousel__pagination-button {
+      width: 8px;
+      height: 8px;
+      padding: 0;
+      border-radius: 100%;
+      background-color: rgba(255, 255, 255, 0.6);
+
+      &--active {
+        background-color: rgba(255, 255, 255, 1);
+      }
     }
   }
 
