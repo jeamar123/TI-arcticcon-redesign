@@ -11,14 +11,14 @@
             {{ field }}
           </h4>
           <Link
-            v-else-if="field.includes('http')"
+            v-else-if="String(field).includes('http')"
             :link="field"
             class="selected-data__link"
           >
             {{ field.split("://")[1] }}
           </Link>
           <p v-else-if="name === 'price'" class="selected-data__price">
-            {{ field }}
+            $&nbsp;{{ field }}
           </p>
           <p v-else>
             {{ field }}

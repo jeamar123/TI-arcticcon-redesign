@@ -7,6 +7,7 @@ import PrivacyPolicy from "../views/policies/PrivacyPolicy.vue";
 import TermsOfService from "../views/policies/TermsOfService.vue";
 import CookiePolicy from "../views/policies/CookiePolicy.vue";
 import Sponsor from "../views/Sponsor.vue";
+import SponsorshipPolicy from "../views/policies/SponsorshipPolicy";
 
 const curId = "ac2020";
 
@@ -49,6 +50,11 @@ const routes = [
     path: "/:id/sponsor",
     name: "Sponsor",
     component: Sponsor,
+  },
+  {
+    path: "/sponsorship-terms-and-conditions",
+    name: "SponsorshipPolicy",
+    component: SponsorshipPolicy,
   },
 ];
 

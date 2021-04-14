@@ -4,7 +4,12 @@
       Do you want speciality pakages?
     </Heading>
     <div class="specialties__list">
-      <SpecialtyCard v-for="pkg in packages" :key="pkg.name" :specialty="pkg" />
+      <SpecialtyCard
+        v-for="pkg in packages"
+        :key="pkg.name"
+        :specialty="pkg"
+        @click="$emit('toggle-specialty', pkg)"
+      />
     </div>
   </div>
 </template>
@@ -21,6 +26,7 @@ export default {
       default: () => [],
     },
   },
+  emits: ["toggle-specialty"],
   components: {
     Heading,
     SpecialtyCard,

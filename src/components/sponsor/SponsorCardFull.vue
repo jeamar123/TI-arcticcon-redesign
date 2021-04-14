@@ -70,7 +70,7 @@ export default {
     selectPackage() {
       this.$emit("select-package", {
         title: `${this.pkg.name} package`,
-        price: `$ ${this.pkg.price}`,
+        price: this.pkg.price,
       });
     },
   },

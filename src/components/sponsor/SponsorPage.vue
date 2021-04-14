@@ -1,33 +1,44 @@
 <template>
   <div class="sponsor-page">
-    <SponsorForm
-      v-if="!isFormFilled && !isPackageSelected"
-      @sponsor-form-filled="goToPackages"
+    <template v-if="!isApplied">
+      <SponsorForm
+        v-if="!isFormFilled && !isPackageSelected"
+        @sponsor-form-filled="goToPackages"
+      />
+      <transition name="fade">
+        <FormSelectedData
+          v-if="isFormFilled || isPackageSelected"
+          :data="selectedData"
+        >
+          <template #policy v-if="isFormFilled && isPackageSelected">
+            By clicking Next, you are indicating that you have read and
+            acknowledge the
+            <Link link="/sponsorship-terms-and-conditions" target="_blank">
+              Sponsorship Terms and Conditions </Link
+            >.
+          </template>
+        </FormSelectedData>
+      </transition>
+      <transition name="fade">
+        <SponsorPackages
+          v-if="isFormFilled && !isPackageSelected"
+          :packages="packages"
+          @select-package="selectPackage"
+        />
+      </transition>
+      <transition name="fade">
+        <SpecialtyPackages
+          v-if="isFormFilled && isPackageSelected"
+          :packages="specialties"
+          @toggle-specialty="toggleSpecialty"
+        />
+      </transition>
+    </template>
+    <ThankYou
+      v-else
+      title="Thank you for your apply!"
+      text="We send sponsor prospectus to your email."
     />
-    <transition name="fade">
-      <FormSelectedData
-        v-if="isFormFilled || isPackageSelected"
-        :data="selectedData"
-      >
-        <template #policy v-if="isFormFilled && isPackageSelected">
-          By clicking Next, you are indicating that you have read and
-          acknowledge the Terms of Service and Privacy Notice.
-        </template>
-      </FormSelectedData>
-    </transition>
-    <transition name="fade">
-      <SponsorPackages
-        v-if="isFormFilled && !isPackageSelected"
-        :packages="packages"
-        @select-package="selectPackage"
-      />
-    </transition>
-    <transition name="fade">
-      <SpecialtyPackages
-        v-if="isFormFilled && isPackageSelected"
-        :packages="specialties"
-      />
-    </transition>
   </div>
 </template>
 
@@ -37,6 +48,8 @@ import FormSelectedData from "@/components/common/FormSelectedData";
 import SponsorForm from "./SponsorForm";
 import SponsorPackages from "./SponsorPackages";
 import SpecialtyPackages from "./SpecialtyPackages";
+import Link from "@/components/common/Link";
+import ThankYou from "@/components/common/ThankYou";
 
 export default {
   name: "SponsorComponent",
@@ -46,6 +59,8 @@ export default {
     SponsorForm,
     SponsorPackages,
     SpecialtyPackages,
+    Link,
+    ThankYou,
   },
   data: () => ({
     sponsorInfo: {},
@@ -62,6 +77,7 @@ export default {
     ],
     isFormFilled: true,
     isPackageSelected: false,
+    isApplied: true,
   }),
   computed: {},
   async created() {
@@ -94,7 +110,43 @@ export default {
     },
     selectPackage(pkg) {
       this.isPackageSelected = true;
-      this.selectedData = [...this.selectedData, { ...pkg }];
+      this.selectedData = [
+        ...this.selectedData,
+        { ...pkg },
+        { title: "Total", price: pkg.price },
+      ];
+    },
+    toggleSpecialty(pkg) {
+      const hasPkg = this.selectedData.some((item) => item.title === pkg.name);
+      const selecdedDataNoTotal = this.selectedData.filter(
+        (item) => item.title !== "Total"
+      );
+
+      if (hasPkg) {
+        const newSelectedData = selecdedDataNoTotal.filter(
+          (item) => item.title !== pkg.name
+        );
+        this.selectedData = [
+          ...newSelectedData,
+          { title: "Total", price: this.calculateTotal(newSelectedData) },
+        ];
+      } else {
+        const newSelectedData = [
+          ...selecdedDataNoTotal,
+          { title: pkg.name, price: pkg.price },
+        ];
+        this.selectedData = [
+          ...newSelectedData,
+          { title: "Total", price: this.calculateTotal(newSelectedData) },
+        ];
+      }
+    },
+    calculateTotal(selectedData) {
+      return selectedData.reduce((acc, cur) => {
+        if (cur.price) return acc + cur.price;
+
+        return acc;
+      }, 0);
     },
   },
 };
