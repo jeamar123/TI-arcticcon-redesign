@@ -48,6 +48,16 @@ export default {
     opacity: 0.6;
   }
 
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+
+    &:hover {
+      background-color: initial;
+      color: initial;
+    }
+  }
+
   &--empty {
     height: 40px;
     background-color: transparent;

@@ -6,10 +6,18 @@ import SignIn from "../views/auth/SignIn.vue";
 import PrivacyPolicy from "../views/policies/PrivacyPolicy.vue";
 import TermsOfService from "../views/policies/TermsOfService.vue";
 import CookiePolicy from "../views/policies/CookiePolicy.vue";
+import Sponsor from "../views/Sponsor.vue";
+import SponsorshipPolicy from "../views/policies/SponsorshipPolicy";
+
+const curId = "unicorncon2022";
 
 const routes = [
   {
     path: "/",
+    redirect: `/${curId}`,
+  },
+  {
+    path: "/:id",
     name: "Home",
     component: Home,
   },
@@ -37,6 +45,16 @@ const routes = [
     path: "/cookie-policy",
     name: "CookiePolicy",
     component: CookiePolicy,
+  },
+  {
+    path: "/:id/sponsor",
+    name: "Sponsor",
+    component: Sponsor,
+  },
+  {
+    path: "/sponsorship-terms-and-conditions",
+    name: "SponsorshipPolicy",
+    component: SponsorshipPolicy,
   },
 ];
 

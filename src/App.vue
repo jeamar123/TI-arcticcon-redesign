@@ -1,5 +1,5 @@
 <template>
-  <Container>
+  <Container ref="containerNew">
     <router-view></router-view>
   </Container>
 </template>
