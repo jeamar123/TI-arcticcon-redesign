@@ -2,9 +2,9 @@
   <article class="sponsor-full">
     <div class="sponsor-full__image-wrapper">
       <Carousel :items-to-show="1">
-        <Slide v-for="slide in 10" :key="slide">
+        <Slide v-for="img in allImages" :key="img">
           <img
-            :src="getImgPath(pkg.name)"
+            :src="img"
             :alt="`${pkg.name} sponsorship level`"
             class="sponsor-full__image"
           />
@@ -16,26 +16,37 @@
       </Carousel>
       <div class="sponsor-full__title-row">
         <div class="sponsor-full__heading-wrapper">
-          <h4 class="sponsor-full__heading">{{ pkg.name }} package</h4>
+          <h4 class="sponsor-full__heading">{{ pkg.friendly_name }}</h4>
           <p class="sponsor-full__price">$ {{ pkg.price }}</p>
         </div>
         <div class="sponsor-full__button-wrapper">
-          <Button is-empty class="sponsor-full__button" @click="selectPackage">
-            select
+          <Button
+            :disabled="pkg.sold_out"
+            is-empty
+            class="sponsor-full__button"
+            @click="selectPackage"
+          >
+            {{ pkg.sold_out ? "not available" : "select" }}
           </Button>
-          <p class="sponsor-full__quantity">{{ pkg.sponsor }} available</p>
+          <p v-if="!pkg.sold_out" class="sponsor-full__quantity">
+            {{ pkgsAvailable }} available
+          </p>
         </div>
       </div>
     </div>
     <dl class="sponsor-full__features">
-      <dt class="sponsor-full__feature-title">Live Preferences</dt>
-      <dd
-        v-for="feature in pkg.features"
-        :key="feature"
-        class="sponsor-full__feature-text"
-      >
-        {{ feature }}
-      </dd>
+      <template v-for="(featuresItems, name) in allFeatures" :key="name">
+        <dt class="sponsor-full__feature-title">
+          {{ name }}
+        </dt>
+        <dd
+          v-for="item in featuresItems"
+          :key="item"
+          class="sponsor-full__feature-text"
+        >
+          {{ item }}
+        </dd>
+      </template>
     </dl>
   </article>
 </template>
@@ -62,15 +73,26 @@ export default {
     Navigation,
   },
   data: () => ({}),
-  computed: {},
-  methods: {
-    getImgPath(level) {
-      return require(`../../assets/img/sponsor-${level.toLowerCase()}.jpg`);
+  computed: {
+    allImages() {
+      return [this.pkg.primary_image, ...this.pkg.images];
     },
+    allFeatures() {
+      return {
+        ...this.pkg.features,
+        "Acess Badges": [...this.pkg.badges],
+      };
+    },
+    pkgsAvailable() {
+      return this.pkg.quantity - this.pkg.purchased;
+    },
+  },
+  methods: {
     selectPackage() {
       this.$emit("select-package", {
-        title: `${this.pkg.name} package`,
+        title: this.pkg.friendly_name,
         price: this.pkg.price,
+        id: this.pkg.id,
       });
     },
   },
@@ -98,6 +120,7 @@ export default {
     padding-left: 32px;
     margin-bottom: 16px;
     color: $black;
+    text-align: left;
   }
 
   &__heading {
@@ -131,6 +154,7 @@ export default {
 
   &__features {
     margin-bottom: 22px;
+    text-align: left;
   }
 
   &__feature-title {
@@ -138,7 +162,7 @@ export default {
     font-weight: $sansBold;
     font-size: 0.9rem;
     line-height: 1.3;
-    margin-bottom: 20px;
+    margin: 20px 0;
   }
 
   &__feature-text {

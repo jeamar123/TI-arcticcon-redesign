@@ -11,7 +11,7 @@
           :data="selectedData"
         >
           <template #policy v-if="isFormFilled && isPackageSelected">
-            By clicking Next, you are indicating that you have read and
+            By clicking APPLY, you are indicating that you have read and
             acknowledge the
             <Link link="/sponsorship-terms-and-conditions" target="_blank">
               Sponsorship Terms and Conditions </Link
@@ -29,8 +29,11 @@
       <transition name="fade">
         <SpecialtyPackages
           v-if="isFormFilled && isPackageSelected"
+          key="specialty-packages"
           :packages="specialties"
+          :has-error="hasApplicationError"
           @toggle-specialty="toggleSpecialty"
+          @apply="applyForSponsorship"
         />
       </transition>
     </template>
@@ -44,6 +47,7 @@
 
 <script>
 import { mapActions } from "vuex";
+import { isEmpty } from "@/assets/js/utils";
 import FormSelectedData from "@/components/common/FormSelectedData";
 import SponsorForm from "./SponsorForm";
 import SponsorPackages from "./SponsorPackages";
@@ -62,36 +66,45 @@ export default {
     Link,
     ThankYou,
   },
-  data: () => ({
-    sponsorInfo: {},
-    packages: [],
-    specialties: [],
-    selectedData: [
-      {
-        title: "Sponsor information",
-        name: "Test",
-        email: "test@email.com",
-        phone: "1234567890",
-        organization: "https://arctic-con.com/#/",
+  data() {
+    return {
+      sponsorPkgs: {},
+      packages: [],
+      specialties: [],
+      selectedData: [],
+      isFormFilled: false,
+      isPackageSelected: false,
+      isApplied: false,
+      hasApplicationError: false,
+      applicationData: {
+        parent: this.$route.params.id,
+        name: "",
+        website: "",
+        first_name: "",
+        last_name: "",
+        email: "",
+        phone: "",
+        level: "",
+        selected_packages: [],
       },
-    ],
-    isFormFilled: true,
-    isPackageSelected: false,
-    isApplied: true,
-  }),
+    };
+  },
   computed: {},
   async created() {
-    this.sponsorInfo = await this.getSponsorData();
-    this.packages = this.sponsorInfo.packages.filter((item) => item.features);
-    this.specialties = this.sponsorInfo.packages.filter(
-      (item) => !item.features
+    this.sponsorPkgs = await this.getSponsorData();
+    this.packages = this.sponsorPkgs.filter(
+      (item) => !this.isEmpty(item.features)
+    );
+    this.specialties = this.sponsorPkgs.filter((item) =>
+      this.isEmpty(item.features)
     );
   },
   methods: {
-    ...mapActions(["GET"]),
+    isEmpty,
+    ...mapActions(["GET", "POST"]),
     getSponsorData() {
       return this.GET({
-        route: `sponsor/sponsor_event/${this.$route.params.id}`,
+        route: `/public/event/${this.$route.params.id}/sponsorship_package`,
       })
         .then((resp) => resp.data)
         .catch((err) => {
@@ -103,41 +116,65 @@ export default {
       this.selectedData = [
         ...this.selectedData,
         {
-          ...formData,
           title: "Sponsor information",
+          ...formData,
         },
       ];
+      this.applicationData = {
+        ...this.applicationData,
+        ...formData,
+      };
     },
     selectPackage(pkg) {
+      const packageToShow = { ...pkg };
+      delete packageToShow.id;
+
       this.isPackageSelected = true;
       this.selectedData = [
         ...this.selectedData,
-        { ...pkg },
-        { title: "Total", price: pkg.price },
+        { ...packageToShow },
+        { title: "Total", price: packageToShow.price },
       ];
+
+      this.applicationData.selected_packages = [
+        ...this.applicationData.selected_packages,
+        pkg.id,
+      ];
+      this.applicationData.level = pkg.id;
     },
     toggleSpecialty(pkg) {
-      const hasPkg = this.selectedData.some((item) => item.title === pkg.name);
-      const selecdedDataNoTotal = this.selectedData.filter(
+      const hasPkg = this.selectedData.some(
+        (item) => item.title === pkg.friendly_name
+      );
+      const selectedDataNoTotal = this.selectedData.filter(
         (item) => item.title !== "Total"
       );
 
       if (hasPkg) {
-        const newSelectedData = selecdedDataNoTotal.filter(
-          (item) => item.title !== pkg.name
+        const newSelectedData = selectedDataNoTotal.filter(
+          (item) => item.title !== pkg.friendly_name
         );
         this.selectedData = [
           ...newSelectedData,
           { title: "Total", price: this.calculateTotal(newSelectedData) },
         ];
+
+        this.applicationData.selected_packages = this.applicationData.selected_packages.filter(
+          (item) => item !== pkg.id
+        );
       } else {
         const newSelectedData = [
-          ...selecdedDataNoTotal,
-          { title: pkg.name, price: pkg.price },
+          ...selectedDataNoTotal,
+          { title: pkg.friendly_name, price: pkg.price },
         ];
         this.selectedData = [
           ...newSelectedData,
           { title: "Total", price: this.calculateTotal(newSelectedData) },
+        ];
+
+        this.applicationData.selected_packages = [
+          ...this.applicationData.selected_packages,
+          pkg.id,
         ];
       }
     },
@@ -147,6 +184,18 @@ export default {
 
         return acc;
       }, 0);
+    },
+    applyForSponsorship() {
+      this.POST({
+        route: `/public/event/${this.$route.params.id}/sponsorship`,
+        data: this.applicationData,
+      })
+        .then(() => {
+          this.isApplied = true;
+        })
+        .catch(() => {
+          this.hasApplicationError = true;
+        });
     },
   },
 };

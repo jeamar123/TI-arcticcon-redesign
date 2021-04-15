@@ -1,16 +1,16 @@
 <template>
   <article class="sponsor-breef">
     <img
-      :src="getImgPath(pkg.name)"
+      :src="pkg.primary_image"
       :alt="`${pkg.name} sponsorship level`"
       class="sponsor-breef__image"
     />
     <div class="sponsor-breef__info">
-      <h4 class="sponsor-breef__title">{{ pkg.name }} package</h4>
+      <h4 class="sponsor-breef__title">{{ pkg.friendly_name }}</h4>
       <p>
         &ndash; $ {{ pkg.price }}
         <br />
-        &ndash; {{ pkg.sponsor }} available
+        &ndash; {{ pkgsAvailable }} available
       </p>
     </div>
   </article>
@@ -27,12 +27,12 @@ export default {
   },
   components: {},
   data: () => ({}),
-  computed: {},
-  methods: {
-    getImgPath(level) {
-      return require(`../../assets/img/sponsor-${level.toLowerCase()}.jpg`);
+  computed: {
+    pkgsAvailable() {
+      return this.pkg.quantity - this.pkg.purchased;
     },
   },
+  methods: {},
 };
 </script>
 
@@ -52,6 +52,7 @@ export default {
 
   &__info {
     padding: 0 32px;
+    text-align: left;
   }
 
   &__title {

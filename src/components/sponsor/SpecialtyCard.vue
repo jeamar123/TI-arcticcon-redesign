@@ -1,16 +1,17 @@
 <template>
-  <article class="specialty-card">
+  <article
+    class="specialty-card"
+    :class="{ 'specialty-card--sold-out': specialty.sold_out }"
+  >
     <div class="specialty-card__image-wrapper">
       <div class="specialty-card__image">
-        <img src="../../assets/img/coffee-sample.jpg" :alt="specialty.name" />
+        <img :src="specialty.primary_image" :alt="specialty.friendly_name" />
       </div>
     </div>
     <h4 class="specialty-card__title">
-      {{ specialty.name }}
+      {{ specialty.friendly_name }}
     </h4>
-    <!-- <p class="specialty-card__text">
-      {num} available
-    </p> -->
+    <p class="specialty-card__text">{{ availablePkgs }} available</p>
     <p class="specialty-card__text">$ {{ specialty.price }}</p>
     <p class="specialty-card__text">
       {{
@@ -44,7 +45,11 @@ export default {
   data: () => ({
     isDescriptionFull: false,
   }),
-  computed: {},
+  computed: {
+    availablePkgs() {
+      return this.specialty.quantity - this.specialty.purchased;
+    },
+  },
   methods: {
     shortenText,
   },
@@ -56,6 +61,11 @@ export default {
 
 .specialty-card {
   cursor: pointer;
+
+  &--sold-out {
+    opacity: 0.4;
+    pointer-events: none;
+  }
 
   &:hover &__image img {
     transform: scale(1.1);
@@ -71,6 +81,8 @@ export default {
     position: absolute;
     top: 0;
     left: 0;
+    width: 100%;
+    height: 100%;
     overflow: hidden;
 
     img {

@@ -52,11 +52,17 @@ export default {
   },
   data: () => ({
     form: {
-      name: {
+      first_name: {
         value: "",
         error: "",
         rules: ["required"],
-        label: "First Name, Last Name",
+        label: "First Name",
+      },
+      last_name: {
+        value: "",
+        error: "",
+        rules: ["required"],
+        label: "Last Name",
       },
       email: {
         value: "",
@@ -70,7 +76,7 @@ export default {
         rules: ["required", "phone"],
         label: "Phone",
       },
-      organisation: {
+      name: {
         value: "",
         error: "",
         rules: ["required"],

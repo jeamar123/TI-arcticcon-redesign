@@ -9,7 +9,7 @@ import CookiePolicy from "../views/policies/CookiePolicy.vue";
 import Sponsor from "../views/Sponsor.vue";
 import SponsorshipPolicy from "../views/policies/SponsorshipPolicy";
 
-const curId = "ac2020";
+const curId = "unicorncon2022";
 
 const routes = [
   {
