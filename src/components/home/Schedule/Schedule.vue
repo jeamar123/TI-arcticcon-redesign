@@ -108,6 +108,7 @@ export default {
 
 .schedule {
   padding: 32px;
+  padding-bottom: 0;
   position: relative;
 
   &__heading {
