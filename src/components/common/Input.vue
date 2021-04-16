@@ -15,6 +15,7 @@
         :value.prop="modelValue"
         :placeholder="label"
         :id="name"
+        :rows="isMultiline ? rows : null"
         ref="inputRef"
         class="input__control"
         v-bind="$attrs"
@@ -58,11 +59,32 @@ export default {
       default: "",
       required: true,
     },
+    rows: {
+      type: [String, Number],
+      default: 1,
+    },
   },
   emits: ["update:modelValue"],
   computed: {
     isInputEmpty() {
       return !this.modelValue.length;
+    },
+  },
+  watch: {
+    modelValue() {
+      this.autoResize();
+    },
+  },
+  methods: {
+    autoResize() {
+      if (this.isMultiline) {
+        const elem = document.getElementById(this.name);
+        const offset = elem.offsetHeight - elem.clientHeight;
+
+        elem.style.height = this.modelValue
+          ? elem.scrollHeight + offset + "px"
+          : "56px";
+      }
     },
   },
 };

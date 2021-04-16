@@ -8,6 +8,7 @@ import TermsOfService from "../views/policies/TermsOfService.vue";
 import CookiePolicy from "../views/policies/CookiePolicy.vue";
 import Sponsor from "../views/Sponsor.vue";
 import SponsorshipPolicy from "../views/policies/SponsorshipPolicy";
+import CFP from "../views/CFP.vue";
 
 const curId = "unicorncon2022";
 
@@ -55,6 +56,11 @@ const routes = [
     path: "/sponsorship-terms-and-conditions",
     name: "SponsorshipPolicy",
     component: SponsorshipPolicy,
+  },
+  {
+    path: "/:id/cfp",
+    name: "CFP",
+    component: CFP,
   },
 ];
 
