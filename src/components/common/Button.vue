@@ -73,6 +73,8 @@ export default {
   }
 
   @media (min-width: $media-sm) {
+    height: 72px;
+
     &--empty {
       height: 56px;
     }

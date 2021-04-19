@@ -112,7 +112,7 @@ export default {
     width: 100%;
     padding: 16px 16px 16px 32px;
     background-color: transparent;
-    border-bottom: 1px solid $black;
+    border-bottom: 2px solid $black;
     color: $black;
     font-family: inherit;
     font-size: 1rem;
