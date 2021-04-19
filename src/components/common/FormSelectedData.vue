@@ -139,8 +139,6 @@ export default {
     top: 0;
     left: 0;
     width: 232px;
-    max-height: 100vh;
-    overflow-y: auto;
     padding-top: 146px;
     background-color: transparent;
 

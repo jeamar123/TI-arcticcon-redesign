@@ -24,6 +24,7 @@
           v-if="isFormFilled && !isPackageSelected"
           :packages="packages"
           @select-package="selectPackage"
+          class="sponsor-page__packages"
         />
       </transition>
       <transition name="fade">
@@ -34,6 +35,7 @@
           :has-error="hasApplicationError"
           @toggle-specialty="toggleSpecialty"
           @apply="applyForSponsorship"
+          class="sponsor-page__specialties"
         />
       </transition>
     </template>

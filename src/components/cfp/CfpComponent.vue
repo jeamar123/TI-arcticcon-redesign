@@ -1,23 +1,26 @@
 <template>
   <div class="cfp-component">
     <FormSelectedData :data="cfpData" />
-    <!-- <SpeakerInfo /> -->
-    <TalkInfo />
+    <SpeakerInfo />
+    <TalkInfo class="cfp-component__talk" />
+    <ContactInfo class="cfp-component__contact" />
   </div>
 </template>
 
 <script>
 import FormSelectedData from "@/components/common/FormSelectedData";
-// import SpeakerInfo from "./SpeakerInfo";
+import SpeakerInfo from "./SpeakerInfo";
 import TalkInfo from "./TalkInfo";
+import ContactInfo from "./ContactInfo";
 
 export default {
   name: "CfpComponent",
   props: {},
   components: {
     FormSelectedData,
-    // SpeakerInfo,
+    SpeakerInfo,
     TalkInfo,
+    ContactInfo,
   },
   data: () => ({
     cfpData: [
@@ -43,3 +46,7 @@ export default {
   methods: {},
 };
 </script>
+
+<style lang="scss">
+@import "@/assets/scss/_variables";
+</style>
