@@ -21,8 +21,8 @@
             $&nbsp;{{ field }}
           </p>
           <template v-else>
-            <p v-if="field.length > 70">
-              {{ isTextFull ? field : shortenText(field, 70) }}
+            <p v-if="field.length > 50">
+              {{ isTextFull ? field : shortenText(field, 50) }}
               <button
                 v-if="!isTextFull"
                 class="selected-data__read-more"
@@ -139,6 +139,8 @@ export default {
     top: 0;
     left: 0;
     width: 232px;
+    max-height: 100vh;
+    overflow-y: auto;
     padding-top: 146px;
     background-color: transparent;
 

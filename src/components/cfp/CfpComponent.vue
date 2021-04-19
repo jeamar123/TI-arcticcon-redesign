@@ -29,6 +29,14 @@ export default {
         bio:
           "Casual polar bear who is passionate about creativity and illustration, Casual polar bear who is passionate about creativity and illustration. Casual polar bear who is passionate about creativity and illustration.",
       },
+      {
+        title: "General information",
+        name: "John",
+        lastName: "Doe",
+        organization: "Google",
+        bio:
+          "Casual polar bear who is passionate about creativity and illustration, Casual polar bear who is passionate about creativity and illustration. Casual polar bear who is passionate about creativity and illustration.",
+      },
     ],
   }),
   computed: {},
