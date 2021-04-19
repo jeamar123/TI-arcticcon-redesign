@@ -5,6 +5,7 @@
     <Apply />
     <Schedule />
     <Villages />
+    <Volunteering />
     <Sponsors />
   </div>
 </template>
@@ -15,6 +16,7 @@ import About from "@/components/home/About";
 import Apply from "@/components/home/Apply";
 import Schedule from "@/components/home/Schedule/Schedule";
 import Villages from "@/components/home/Villages/Villages";
+import Volunteering from "@/components/home/Volunteering";
 import Sponsors from "@/components/home/Sponsors";
 
 export default {
@@ -25,6 +27,7 @@ export default {
     Apply,
     Schedule,
     Villages,
+    Volunteering,
     Sponsors,
   },
 };
