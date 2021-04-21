@@ -3,7 +3,7 @@
     <Heading type="h3" text-align="alter" class="talk-info__title">
       Talk information
     </Heading>
-    <form @submit.prevent="goToContact" class="with-fsd__form">
+    <form @submit.prevent="submitTalkInfo" class="with-fsd__form">
       <Input
         v-model="form.title.value"
         :error="form.title.error"
@@ -52,6 +52,7 @@
 </template>
 
 <script>
+import { transformForm } from "@/assets/js/utils";
 import {
   validateField,
   validateForm,
@@ -64,6 +65,7 @@ import Button from "@/components/common/Button";
 export default {
   name: "TalkInfo",
   props: {},
+  emits: ["submit-talk-data"],
   components: {
     Heading,
     Input,
@@ -104,13 +106,28 @@ export default {
   }),
   computed: {},
   methods: {
+    transformForm,
     validateField,
     validateForm,
     clearError,
     getTrackIcon(track) {
       return require(`../../assets/img/icons/${track}.svg`);
     },
-    goToContact() {},
+    submitTalkInfo() {
+      const isValid = this.validateForm(this.form);
+      if (!isValid) return;
+
+      const talkData = this.transformForm(this.form);
+      const talkDisplayData = {
+        name: talkData.title,
+        talk_type: this.tracks.find(
+          (track) => track.value === talkData.talk_type
+        ).displayValue,
+        description: talkData.description,
+      };
+
+      this.$emit("submit-talk-data", [talkData, talkDisplayData]);
+    },
   },
 };
 </script>

@@ -1,12 +1,30 @@
 <template>
   <div class="cfp-component">
-    <SpeakerInfo v-if="!isSpeakerInfoFilled && !isTalkInfoFilled" />
-    <WithFormSelectedData v-else :selected-data="cfpData">
-      <template #body>
-        <TalkInfo v-if="isSpeakerInfoFilled && !isTalkInfoFilled" />
-        <ContactInfo v-if="isSpeakerInfoFilled && isTalkInfoFilled" />
-      </template>
-    </WithFormSelectedData>
+    <SpeakerInfo
+      v-if="!isSpeakerInfoFilled && !isTalkInfoFilled"
+      @submit-speaker-data="goToTalk"
+    />
+    <transition name="fade">
+      <WithFormSelectedData
+        v-if="isSpeakerInfoFilled || isTalkInfoFilled"
+        :selected-data="cfpDisplayData"
+      >
+        <template #body>
+          <transition name="fade">
+            <TalkInfo
+              v-if="isSpeakerInfoFilled && !isTalkInfoFilled"
+              @submit-talk-data="goToContact"
+            />
+          </transition>
+          <transition name="fade">
+            <ContactInfo
+              v-if="isSpeakerInfoFilled && isTalkInfoFilled"
+              @submit-contact-data="goToSubmit"
+            />
+          </transition>
+        </template>
+      </WithFormSelectedData>
+    </transition>
   </div>
 </template>
 
@@ -26,45 +44,38 @@ export default {
     ContactInfo,
   },
   data: () => ({
-    isSpeakerInfoFilled: true,
-    isTalkInfoFilled: true,
-    cfpData: [
-      {
-        title: "General information",
-        name: "John",
-        lastName: "Doe",
-        organization: "Google",
-        bio:
-          "Casual polar bear who is passionate about creativity and illustration, Casual polar bear who is passionate about creativity and illustration. Casual polar bear who is passionate about creativity and illustration.",
-      },
-      {
-        title: "General information",
-        name: "John",
-        lastName: "Doe",
-        organization: "Google",
-        bio:
-          "Casual polar bear who is passionate about creativity and illustration, Casual polar bear who is passionate about creativity and illustration. Casual polar bear who is passionate about creativity and illustration.",
-      },
-      {
-        title: "General information",
-        name: "John",
-        lastName: "Doe",
-        organization: "Google",
-        bio:
-          "Casual polar bear who is passionate about creativity and illustration, Casual polar bear who is passionate about creativity and illustration. Casual polar bear who is passionate about creativity and illustration.",
-      },
-      {
-        title: "General information",
-        name: "John",
-        lastName: "Doe",
-        organization: "Google",
-        bio:
-          "Casual polar bear who is passionate about creativity and illustration, Casual polar bear who is passionate about creativity and illustration. Casual polar bear who is passionate about creativity and illustration.",
-      },
-    ],
+    isSpeakerInfoFilled: false,
+    isTalkInfoFilled: false,
+    cfpDisplayData: [],
+    cfpForm: {},
   }),
   computed: {},
-  methods: {},
+  methods: {
+    goToTalk(speakerInfo) {
+      this.isSpeakerInfoFilled = true;
+      this.cfpForm = { ...this.cfpForm, ...speakerInfo };
+      this.cfpDisplayData = [
+        ...this.cfpDisplayData,
+        { title: "General information", ...speakerInfo },
+      ];
+    },
+    goToContact(talkInfo) {
+      const [talkData, talkDisplayData] = talkInfo;
+
+      this.isTalkInfoFilled = true;
+      this.cfpForm = { ...this.cfpForm, ...talkData };
+      this.cfpDisplayData = [
+        ...this.cfpDisplayData,
+        { title: "Talk information", ...talkDisplayData },
+      ];
+    },
+    goToSubmit(contactData) {
+      this.cfpForm = { ...this.cfpForm, ...contactData };
+
+      this.submitCFP();
+    },
+    submitCFP() {},
+  },
 };
 </script>
 

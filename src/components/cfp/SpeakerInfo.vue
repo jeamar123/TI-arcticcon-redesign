@@ -7,7 +7,7 @@
         introduced
       </template>
       <template #body>
-        <form @submit.prevent="goToTalk" class="speaker-info__form">
+        <form @submit.prevent="submitSpeakerInfo" class="speaker-info__form">
           <Input
             v-for="(field, name) in form"
             :key="name"
@@ -42,6 +42,7 @@ import Button from "@/components/common/Button";
 export default {
   name: "SpeakerInfo",
   props: {},
+  emits: ["submit-speaker-data"],
   components: {
     SectionWithBg,
     Input,
@@ -88,7 +89,13 @@ export default {
     validateField,
     validateForm,
     clearError,
-    goToTalk() {},
+    submitSpeakerInfo() {
+      const isValid = this.validateForm(this.form);
+      if (!isValid) return;
+
+      const speakerData = this.transformForm(this.form);
+      this.$emit("submit-speaker-data", speakerData);
+    },
   },
 };
 </script>

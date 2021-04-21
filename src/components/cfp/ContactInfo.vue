@@ -3,7 +3,7 @@
     <Heading type="h3" text-align="alter" class="contact-info__title">
       How can we contact you?
     </Heading>
-    <form @submit.prevent="submitCfp" class="with-fsd__form">
+    <form @submit.prevent="submitContact" class="with-fsd__form">
       <Input
         v-for="(field, name) in form"
         :key="name"
@@ -21,6 +21,7 @@
 </template>
 
 <script>
+import { transformForm } from "@/assets/js/utils";
 import {
   validateField,
   validateForm,
@@ -33,6 +34,7 @@ import Button from "@/components/common/Button";
 export default {
   name: "TalkInfo",
   props: {},
+  emits: ["submit-contact-data"],
   components: {
     Heading,
     Input,
@@ -56,10 +58,17 @@ export default {
   }),
   computed: {},
   methods: {
+    transformForm,
     validateField,
     validateForm,
     clearError,
-    submitCfp() {},
+    submitContact() {
+      const isValid = this.validateForm(this.form);
+      if (!isValid) return;
+
+      const contactData = this.transformForm(this.form);
+      this.$emit("submit-contact-data", contactData);
+    },
   },
 };
 </script>
