@@ -1,9 +1,9 @@
 <template>
-  <section class="talk-info padding-x">
+  <section class="talk-info">
     <Heading type="h3" text-align="alter" class="talk-info__title">
       Talk information
     </Heading>
-    <form @submit.prevent="goToContact" class="talk-info__form">
+    <form @submit.prevent="goToContact" class="with-fsd__form">
       <Input
         v-model="form.title.value"
         :error="form.title.error"
@@ -186,14 +186,9 @@ export default {
 
   @media (min-width: $media-sm) {
     padding-top: 124px;
-    padding-left: calc(232px + 24px) !important;
 
     &__title {
       margin-bottom: 116px;
-    }
-
-    &__form {
-      padding-left: 58px;
     }
 
     &__tracks-wrapper {
@@ -210,12 +205,6 @@ export default {
   }
 
   @media (min-width: $media-md) {
-    padding-left: calc(320px + 24px) !important;
-
-    &__form {
-      padding-left: 78px;
-    }
-
     &__tracks-wrapper {
       padding-left: 78px;
     }
@@ -223,23 +212,14 @@ export default {
 
   @media (min-width: $media-lg) {
     padding-top: 144px;
-    padding-left: calc(15vw + 308px + 24px) !important;
 
     &__title {
       margin-bottom: 94px;
     }
 
-    &__form {
-      padding-left: 98px;
-    }
-
     &__tracks-wrapper {
       padding-left: 98px;
     }
-  }
-
-  @media (min-width: $media-xl) {
-    padding-left: calc(20vw + 308px + 24px) !important;
   }
 }
 </style>

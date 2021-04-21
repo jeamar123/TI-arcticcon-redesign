@@ -1,9 +1,9 @@
 <template>
-  <section class="talk-info padding-x">
-    <Heading type="h3" text-align="alter" class="talk-info__title">
+  <section class="contact-info">
+    <Heading type="h3" text-align="alter" class="contact-info__title">
       How can we contact you?
     </Heading>
-    <form @submit.prevent="submitCfp" class="talk-info__form">
+    <form @submit.prevent="submitCfp" class="with-fsd__form">
       <Input
         v-for="(field, name) in form"
         :key="name"
@@ -15,7 +15,7 @@
         @input="clearError(name, form)"
         @blur="validateField(name, form)"
       />
-      <Button class="talk-info__button mt-6"> next </Button>
+      <Button class="contact-info__button mt-6"> next </Button>
     </form>
   </section>
 </template>
@@ -67,7 +67,7 @@ export default {
 <style lang="scss">
 @import "@/assets/scss/_variables";
 
-.talk-info {
+.contact-info {
   padding-top: 35px;
 
   &__title {
@@ -80,40 +80,18 @@ export default {
 
   @media (min-width: $media-sm) {
     padding-top: 124px;
-    padding-left: calc(232px + 24px) !important;
 
     &__title {
       margin-bottom: 116px;
-    }
-
-    &__form {
-      padding-left: 58px;
-    }
-  }
-
-  @media (min-width: $media-md) {
-    padding-left: calc(320px + 24px) !important;
-
-    &__form {
-      padding-left: 78px;
     }
   }
 
   @media (min-width: $media-lg) {
     padding-top: 144px;
-    padding-left: calc(15vw + 308px + 24px) !important;
 
     &__title {
       margin-bottom: 94px;
     }
-
-    &__form {
-      padding-left: 98px;
-    }
-  }
-
-  @media (min-width: $media-xl) {
-    padding-left: calc(20vw + 308px + 24px) !important;
   }
 }
 </style>

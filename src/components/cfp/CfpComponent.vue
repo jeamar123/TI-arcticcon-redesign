@@ -1,14 +1,17 @@
 <template>
   <div class="cfp-component">
-    <FormSelectedData :data="cfpData" />
-    <SpeakerInfo />
-    <TalkInfo class="cfp-component__talk" />
-    <ContactInfo class="cfp-component__contact" />
+    <SpeakerInfo v-if="!isSpeakerInfoFilled && !isTalkInfoFilled" />
+    <WithFormSelectedData v-else :selected-data="cfpData">
+      <template #body>
+        <TalkInfo v-if="isSpeakerInfoFilled && !isTalkInfoFilled" />
+        <ContactInfo v-if="isSpeakerInfoFilled && isTalkInfoFilled" />
+      </template>
+    </WithFormSelectedData>
   </div>
 </template>
 
 <script>
-import FormSelectedData from "@/components/common/FormSelectedData";
+import WithFormSelectedData from "@/components/common/WithFormSelectedData";
 import SpeakerInfo from "./SpeakerInfo";
 import TalkInfo from "./TalkInfo";
 import ContactInfo from "./ContactInfo";
@@ -17,13 +20,31 @@ export default {
   name: "CfpComponent",
   props: {},
   components: {
-    FormSelectedData,
+    WithFormSelectedData,
     SpeakerInfo,
     TalkInfo,
     ContactInfo,
   },
   data: () => ({
+    isSpeakerInfoFilled: true,
+    isTalkInfoFilled: true,
     cfpData: [
+      {
+        title: "General information",
+        name: "John",
+        lastName: "Doe",
+        organization: "Google",
+        bio:
+          "Casual polar bear who is passionate about creativity and illustration, Casual polar bear who is passionate about creativity and illustration. Casual polar bear who is passionate about creativity and illustration.",
+      },
+      {
+        title: "General information",
+        name: "John",
+        lastName: "Doe",
+        organization: "Google",
+        bio:
+          "Casual polar bear who is passionate about creativity and illustration, Casual polar bear who is passionate about creativity and illustration. Casual polar bear who is passionate about creativity and illustration.",
+      },
       {
         title: "General information",
         name: "John",

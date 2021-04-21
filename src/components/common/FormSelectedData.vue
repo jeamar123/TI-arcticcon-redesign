@@ -135,9 +135,6 @@ export default {
   }
 
   @media (min-width: $media-sm) {
-    position: absolute;
-    top: 0;
-    left: 0;
     width: 232px;
     padding-top: 146px;
     background-color: transparent;
