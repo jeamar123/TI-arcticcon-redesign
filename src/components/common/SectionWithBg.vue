@@ -8,6 +8,8 @@
         'bg-section--single-line-heading': singleLineHeading,
         'bg-section--heading-top': headingTop,
         'bg-section--no-shrink-heading': noShrinkHeading,
+        'bg-section--bigger-title-margin': biggerTitleMargin,
+        'bg-section--growing-body': growingBody,
       },
     ]"
   >
@@ -39,6 +41,14 @@ export default {
       default: false,
     },
     noShrinkHeading: {
+      type: Boolean,
+      default: false,
+    },
+    biggerTitleMargin: {
+      type: Boolean,
+      default: false,
+    },
+    growingBody: {
       type: Boolean,
       default: false,
     },
@@ -86,6 +96,12 @@ export default {
     }
   }
 
+  &--bigger-title-margin {
+    #{$self}__heading {
+      margin-bottom: 78px;
+    }
+  }
+
   @media (min-width: $media-sm) {
     padding-bottom: 0;
     padding-top: 136px;
@@ -95,6 +111,14 @@ export default {
 
     &__heading {
       margin-bottom: 0;
+    }
+
+    &--growing-body {
+      #{$self}__text {
+        flex-grow: 1;
+        display: flex;
+        justify-content: flex-end;
+      }
     }
 
     &--py-md {

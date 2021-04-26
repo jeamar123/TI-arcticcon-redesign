@@ -2,24 +2,26 @@
   <SectionWithBg
     heading-position="left"
     single-line-heading
+    bigger-title-margin
+    growing-body
     class="volunteering"
   >
-    <template #heading> Interested in volunteering? </template>
+    <template #heading>
+      Interested in <br />
+      volunteering?
+    </template>
     <template #body>
-      <form @submit.prevent="submitVolunteering">
-        <!-- <Input
-          v-for="(field, name) in form"
-          :key="name"
-          v-model="field.value"
-          :error="field.error"
-          :name="name"
-          :label="field.label"
-          :is-multiline="field.isMultiline"
-          :rows="field.rows"
+      <form @submit.prevent="submitVolunteering" class="volunteering__form">
+        <Input
+          v-model="form.email.value"
+          :error="form.email.error"
+          name="email"
+          label="Email"
           type="text"
-          @input="clearError(name, form)"
-          @blur="validateField(name, form)"
-        /> -->
+          @input="clearError('email', form)"
+          @blur="validateField('email', form)"
+        />
+        <Button class="volunteering__button mt-4"> submit </Button>
       </form>
     </template>
   </SectionWithBg>
@@ -32,16 +34,16 @@ import {
   clearError,
 } from "@/assets/js/validation";
 import SectionWithBg from "@/components/common/SectionWithBg";
-// import Input from "@/components/common/Input";
-// import Button from "@/components/common/Button";
+import Input from "@/components/common/Input";
+import Button from "@/components/common/Button";
 
 export default {
   name: "Volunteering",
   props: {},
   components: {
     SectionWithBg,
-    // Input,
-    // Button,
+    Input,
+    Button,
   },
   data: () => ({
     form: {
@@ -56,7 +58,10 @@ export default {
     validateField,
     validateForm,
     clearError,
-    submitVolunteering() {},
+    submitVolunteering() {
+      // should be submitting form to CRM in old
+      // multipart/form manner
+    },
   },
 };
 </script>
@@ -66,5 +71,22 @@ export default {
 
 .volunteering {
   margin-top: 32px;
+
+  &__button {
+    width: 100%;
+  }
+
+  @media (min-width: $media-sm) {
+    &__form {
+      max-width: 374px;
+      flex-grow: 1;
+    }
+  }
+
+  @media (min-width: $media-md) {
+    &__form {
+      max-width: 462px;
+    }
+  }
 }
 </style>
