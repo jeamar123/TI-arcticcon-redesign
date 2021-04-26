@@ -7,6 +7,7 @@
     <Villages />
     <Volunteering />
     <Sponsors />
+    <ContactUs />
   </div>
 </template>
 
@@ -18,6 +19,7 @@ import Schedule from "@/components/home/Schedule/Schedule";
 import Villages from "@/components/home/Villages/Villages";
 import Volunteering from "@/components/home/Volunteering";
 import Sponsors from "@/components/home/Sponsors";
+import ContactUs from "@/components/home/ContactUs";
 
 export default {
   name: "Home",
@@ -29,6 +31,7 @@ export default {
     Villages,
     Volunteering,
     Sponsors,
+    ContactUs,
   },
 };
 </script>

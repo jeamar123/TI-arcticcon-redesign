@@ -98,7 +98,7 @@ export default {
 
   &--bigger-title-margin {
     #{$self}__heading {
-      margin-bottom: 78px;
+      margin-bottom: 62px;
     }
   }
 

@@ -59,8 +59,8 @@ export default {
     validateForm,
     clearError,
     submitVolunteering() {
-      // should be submitting form to CRM in old
-      // multipart/form manner
+      // should be submitting form to CRM
+      // in old multipart/form manner
     },
   },
 };
