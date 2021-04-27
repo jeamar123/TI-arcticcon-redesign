@@ -3,6 +3,7 @@ import store from "../store/index";
 import Home from "../views/Home.vue";
 import Login from "../views/auth/Login.vue";
 import SignIn from "../views/auth/SignIn.vue";
+import ForgotPassword from "../views/auth/ForgotPassword.vue";
 import PrivacyPolicy from "../views/policies/PrivacyPolicy.vue";
 import TermsOfService from "../views/policies/TermsOfService.vue";
 import CookiePolicy from "../views/policies/CookiePolicy.vue";
@@ -31,6 +32,11 @@ const routes = [
     path: "/sign-in",
     name: "SignIn",
     component: SignIn,
+  },
+  {
+    path: "/forgot-password",
+    name: "ForgotPassword",
+    component: ForgotPassword,
   },
   {
     path: "/privacy-policy",
