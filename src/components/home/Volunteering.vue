@@ -15,7 +15,7 @@
         <Input
           v-model="form.email.value"
           :error="form.email.error"
-          name="email"
+          name="volunt-email"
           label="Email"
           type="text"
           @input="clearError('email', form)"

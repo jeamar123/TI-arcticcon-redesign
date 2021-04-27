@@ -90,6 +90,8 @@ export default {
   }
 
   @media (min-width: $media-sm) {
+    padding-top: 0;
+
     &__form {
       width: 100%;
       max-width: 382px;

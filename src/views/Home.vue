@@ -7,6 +7,7 @@
     <Villages />
     <Volunteering />
     <Sponsors />
+    <Tickets />
     <ContactUs />
   </div>
 </template>
@@ -19,6 +20,7 @@ import Schedule from "@/components/home/Schedule/Schedule";
 import Villages from "@/components/home/Villages/Villages";
 import Volunteering from "@/components/home/Volunteering";
 import Sponsors from "@/components/home/Sponsors";
+import Tickets from "@/components/home/Tickets/Tickets";
 import ContactUs from "@/components/home/ContactUs";
 
 export default {
@@ -31,6 +33,7 @@ export default {
     Villages,
     Volunteering,
     Sponsors,
+    Tickets,
     ContactUs,
   },
 };
