@@ -2,6 +2,8 @@ stages:
   - build
   - deploy
 
+#Dev
+
 build dev:
   image: node:12
   stage: build
@@ -26,3 +28,57 @@ deploy dev:
   script:
     - pip install awscli
     - aws s3 sync ./dist s3://ac-cicd-test/dev
+
+#QA
+
+build qa:
+  image: node:12
+  stage: build
+  only:
+    - stage
+  script:
+    - npm install -g @vue/cli@latest
+    - npm install
+    - npm run lint
+    - npm run build
+  artifacts:
+    paths:
+      # Build folder
+      - dist/
+    expire_in: 1 hour
+
+deploy qa:
+  image: python:latest
+  stage: deploy
+  only:
+    - qa
+  script:
+    - pip install awscli
+    - aws s3 sync ./dist s3://ac-cicd-test/qa
+
+#production
+
+build prod:
+  image: node:12
+  stage: build
+  only:
+    - prod
+  script:
+    - npm install -g @vue/cli@latest
+    - npm install
+    - npm run lint
+    - npm run build
+  artifacts:
+    paths:
+      # Build folder
+      - dist/
+    expire_in: 1 hour
+
+deploy prod:
+  image: python:latest
+  stage: deploy
+  only:
+    - prod
+  script:
+    - pip install awscli
+    - aws s3 sync ./dist s3://ac-cicd-test/prod
