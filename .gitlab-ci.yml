@@ -35,7 +35,7 @@ build qa:
   image: node:12
   stage: build
   only:
-    - stage
+    - qa
   script:
     - npm install -g @vue/cli@latest
     - npm install
