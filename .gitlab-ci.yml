@@ -25,4 +25,4 @@ deploy dev:
     - dev
   script:
     - pip install awscli
-    - aws s3 sync ./dist s3://ac-cicd-test
+    - aws s3 sync ./dist s3://ac-cicd-test/dev
