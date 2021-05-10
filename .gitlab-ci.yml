@@ -18,6 +18,12 @@ build dev:
       - dist/
     expire_in: 1 hour
 
+deploy:
+  stage: deploy
+  script:
+    - echo "$AWS_ACCESS_KEY_ID"
+    - echo "$AWS_SECRET_ACCESS_KEY" 
+
 deploy dev:
   image: python:latest
   stage: deploy
