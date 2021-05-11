@@ -20,7 +20,7 @@
 
 <script>
 import Heading from "@/components/common/Heading";
-import Ticket from "./TicketCard";
+import Ticket from "@/components/common/TicketCard";
 
 export default {
   name: "Tickets",

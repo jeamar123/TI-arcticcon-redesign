@@ -1,7 +1,7 @@
 <template>
   <article class="ticket" :class="{ 'ticket--active': isActive }">
     <span class="ticket__price"> ${{ ticket.price }} </span>
-    <dl class="mb-4">
+    <dl :class="!isCheckout ? 'mb-4' : 'mb-8'">
       <dt>This pass includes access to:</dt>
       <dd
         v-for="feature in ticket.features"
@@ -11,17 +11,32 @@
         {{ feature }}
       </dd>
     </dl>
-    <Button is-empty class="ticket__button" @click="goToTicketPurchase">
+    <Button
+      v-if="!isCheckout"
+      is-empty
+      class="ticket__button"
+      @click="$router.push(`/${$route.params.id}/checkout`)"
+    >
       get ticket
     </Button>
+    <Input
+      v-else
+      v-model="quantity"
+      type="text"
+      :name="`${ticket.type}-quantity`"
+      label="Quantity"
+      @input="$emit('change-quantity', quantity)"
+    />
   </article>
 </template>
 
 <script>
 import Button from "@/components/common/Button";
+import Input from "@/components/common/Input";
 
 export default {
   name: "Ticket",
+  emits: ["change-quantity"],
   props: {
     ticket: {
       type: Object,
@@ -31,15 +46,20 @@ export default {
       type: Boolean,
       default: false,
     },
+    isCheckout: {
+      type: Boolean,
+      default: false,
+    },
   },
   components: {
     Button,
+    Input,
   },
-  data: () => ({}),
+  data: () => ({
+    quantity: "1",
+  }),
   computed: {},
-  methods: {
-    goToTicketPurchase() {},
-  },
+  methods: {},
 };
 </script>
 

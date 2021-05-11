@@ -1,16 +1,16 @@
 <template>
   <article class="village-card">
     <img
-      src="../../../assets/img/village-sample.jpg"
-      :alt="`${village.name} image`"
+      src="../../assets/img/village-sample.jpg"
+      :alt="`${data.name} image`"
       class="village-card__image"
     />
     <div class="village-card__text">
       <h4 class="village-card__title">
-        {{ village.name }}
+        {{ data.name }}
       </h4>
-      <p class="village-card__description">
-        {{ village.description }}
+      <p v-if="hasDescription" class="village-card__description">
+        {{ data.description }}
       </p>
     </div>
   </article>
@@ -20,9 +20,13 @@
 export default {
   name: "VillageCard",
   props: {
-    village: {
+    data: {
       type: Object,
       default: () => ({}),
+    },
+    hasDescription: {
+      type: Boolean,
+      default: false,
     },
   },
   components: {},

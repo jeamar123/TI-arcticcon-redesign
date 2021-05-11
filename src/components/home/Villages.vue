@@ -9,7 +9,7 @@
       :breakpoints="carouselBreakpoints"
     >
       <Slide v-for="village in villages" :key="village.name">
-        <VillageCard :village="village" class="villages__item" />
+        <VillageCard :data="village" has-description class="villages__item" />
       </Slide>
       <template #addons>
         <Navigation />
@@ -22,7 +22,7 @@
 import "vue3-carousel/dist/carousel.css";
 import { Carousel, Slide, Navigation } from "vue3-carousel";
 import Heading from "@/components/common/Heading";
-import VillageCard from "./VillageCard";
+import VillageCard from "@/components/common/CommonCard";
 
 export default {
   name: "Villages",
@@ -95,6 +95,8 @@ export default {
   }
 
   @media (min-width: $media-sm) {
+    padding-top: 120px;
+
     &__heading {
       margin-bottom: 52px;
     }
@@ -123,7 +125,7 @@ export default {
 
   .carousel__next {
     background-position: center right;
-    background-image: url("../../../assets/img/icons/arrow-next.svg");
+    background-image: url("../../assets/img/icons/arrow-next.svg");
 
     &::before {
       content: "Next";
@@ -135,7 +137,7 @@ export default {
   .carousel__prev {
     padding-left: 24px;
     background-position: center left;
-    background-image: url("../../../assets/img/icons/arrow-prev.svg");
+    background-image: url("../../assets/img/icons/arrow-prev.svg");
 
     &::after {
       content: "Previous";
