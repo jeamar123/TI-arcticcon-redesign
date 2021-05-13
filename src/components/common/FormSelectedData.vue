@@ -20,9 +20,19 @@
           <p v-else-if="name === 'price'" class="selected-data__price">
             $&nbsp;{{ field }}
           </p>
-          <p v-else>
-            {{ field }}
-          </p>
+          <template v-else>
+            <p v-if="field.length > 50">
+              {{ isTextFull ? field : shortenText(field, 50) }}
+              <button
+                v-if="!isTextFull"
+                class="selected-data__read-more"
+                @click="isTextFull = true"
+              >
+                Read more
+              </button>
+            </p>
+            <p v-else>{{ field }}</p>
+          </template>
         </template>
       </section>
       <div v-if="$slots.policy" key="policy" class="selected-data__section">
@@ -34,6 +44,7 @@
 
 <script>
 import { mapGetters } from "vuex";
+import { shortenText } from "@/assets/js/utils";
 import Link from "@/components/common/Link";
 
 export default {
@@ -47,11 +58,15 @@ export default {
   components: {
     Link,
   },
-  data: () => ({}),
+  data: () => ({
+    isTextFull: false,
+  }),
   computed: {
     ...mapGetters(["currentPageHeight"]),
   },
-  methods: {},
+  methods: {
+    shortenText,
+  },
 };
 </script>
 
@@ -69,6 +84,7 @@ export default {
   &__heading {
     color: $black;
     font-weight: $sansBold;
+    margin-bottom: 8px;
     position: relative;
 
     &::before {
@@ -93,10 +109,32 @@ export default {
     color: $black;
   }
 
+  &__read-more {
+    display: block;
+    border: none;
+    background: transparent;
+    padding: 0;
+    color: $black;
+    font-family: $sarabun;
+    font-weight: $sarabunSemibold;
+    text-decoration: underline;
+    cursor: pointer;
+    transition: text-decoration 0.3s, opacity 0.3s;
+
+    &:hover {
+      text-decoration: none;
+    }
+
+    &:active {
+      opacity: 0.6;
+    }
+
+    &:focus {
+      outline: none;
+    }
+  }
+
   @media (min-width: $media-sm) {
-    position: absolute;
-    top: 0;
-    left: 0;
     width: 232px;
     padding-top: 146px;
     background-color: transparent;

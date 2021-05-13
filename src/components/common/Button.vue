@@ -40,7 +40,7 @@ export default {
   transition: background-color 0.3s, color 0.3s, opacity 0.3s;
 
   &:hover {
-    background-color: $white;
+    background-color: transparent;
     color: $black;
   }
 
@@ -73,6 +73,8 @@ export default {
   }
 
   @media (min-width: $media-sm) {
+    height: 72px;
+
     &--empty {
       height: 56px;
     }

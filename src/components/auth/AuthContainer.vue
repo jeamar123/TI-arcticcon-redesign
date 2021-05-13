@@ -3,7 +3,8 @@
     <SectionWithBg
       single-line-heading
       heading-top
-      no-shrink-heading
+      growing-body
+      :no-shrink-heading="noShrinkHeading"
       heading-position="left"
       class="auth-container__section"
     >
@@ -45,6 +46,10 @@ export default {
     hasError: {
       type: Boolean,
       default: false,
+    },
+    noShrinkHeading: {
+      type: Boolean,
+      default: true,
     },
   },
   emits: ["submit-form"],
@@ -90,14 +95,14 @@ export default {
 
   @media (min-width: $media-md) {
     &__form-wrapper {
-      padding-left: 52px;
+      padding-left: 0;
       display: flex;
       flex-direction: row-reverse;
       align-items: center;
     }
 
     &__form {
-      min-width: 374px;
+      min-width: 320px;
     }
 
     &__text {

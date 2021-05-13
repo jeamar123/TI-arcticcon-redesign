@@ -3,11 +3,16 @@ import store from "../store/index";
 import Home from "../views/Home.vue";
 import Login from "../views/auth/Login.vue";
 import SignIn from "../views/auth/SignIn.vue";
+import ForgotPassword from "../views/auth/ForgotPassword.vue";
 import PrivacyPolicy from "../views/policies/PrivacyPolicy.vue";
 import TermsOfService from "../views/policies/TermsOfService.vue";
 import CookiePolicy from "../views/policies/CookiePolicy.vue";
 import Sponsor from "../views/Sponsor.vue";
 import SponsorshipPolicy from "../views/policies/SponsorshipPolicy";
+import CFP from "../views/CFP.vue";
+import Checkout from "../views/CheckoutPage.vue";
+import Blog from "../views/Blog.vue";
+import Join from "../views/Join.vue";
 
 const curId = "unicorncon2022";
 
@@ -30,6 +35,11 @@ const routes = [
     path: "/sign-in",
     name: "SignIn",
     component: SignIn,
+  },
+  {
+    path: "/forgot-password",
+    name: "ForgotPassword",
+    component: ForgotPassword,
   },
   {
     path: "/privacy-policy",
@@ -55,6 +65,26 @@ const routes = [
     path: "/sponsorship-terms-and-conditions",
     name: "SponsorshipPolicy",
     component: SponsorshipPolicy,
+  },
+  {
+    path: "/:id/cfp",
+    name: "CFP",
+    component: CFP,
+  },
+  {
+    path: "/:id/checkout",
+    name: "Checkout",
+    component: Checkout,
+  },
+  {
+    path: "/:id/join",
+    name: "Join",
+    component: Join,
+  },
+  {
+    path: "/blog",
+    name: "Blog",
+    component: Blog,
   },
 ];
 
