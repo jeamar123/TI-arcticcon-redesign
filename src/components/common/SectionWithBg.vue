@@ -10,6 +10,7 @@
         'bg-section--no-shrink-heading': noShrinkHeading,
         'bg-section--bigger-title-margin': biggerTitleMargin,
         'bg-section--growing-body': growingBody,
+        'bg-section--min-width-heading': minWidthHeading,
       },
     ]"
   >
@@ -49,6 +50,10 @@ export default {
       default: false,
     },
     growingBody: {
+      type: Boolean,
+      default: false,
+    },
+    minWidthHeading: {
       type: Boolean,
       default: false,
     },
@@ -117,7 +122,15 @@ export default {
       #{$self}__text {
         flex-grow: 1;
         display: flex;
+        flex-flow: column;
+        align-items: flex-end;
         justify-content: flex-end;
+      }
+    }
+
+    &--min-width-heading {
+      #{$self}__heading {
+        width: min-content;
       }
     }
 

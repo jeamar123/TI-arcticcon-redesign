@@ -12,6 +12,7 @@ import SponsorshipPolicy from "../views/policies/SponsorshipPolicy";
 import CFP from "../views/CFP.vue";
 import Checkout from "../views/CheckoutPage.vue";
 import Blog from "../views/Blog.vue";
+import Join from "../views/Join.vue";
 
 const curId = "unicorncon2022";
 
@@ -74,6 +75,11 @@ const routes = [
     path: "/:id/checkout",
     name: "Checkout",
     component: Checkout,
+  },
+  {
+    path: "/:id/join",
+    name: "Join",
+    component: Join,
   },
   {
     path: "/blog",
