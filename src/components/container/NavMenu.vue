@@ -30,11 +30,11 @@ export default {
 @import "@/assets/scss/_variables";
 
 .menu {
-  position: absolute;
-  z-index: 3;
+  position: fixed;
+  z-index: 10;
   background-color: $light-gray;
   min-height: calc(100vh - 72px);
-  top: 100%;
+  top: 72px;
   right: 0;
   width: 100%;
   padding-bottom: 100px;
@@ -46,7 +46,7 @@ export default {
     left: 0;
     height: 24px;
     width: 100%;
-    background-color: $yellow;
+    background-color: $blue;
   }
 
   &__list {
@@ -102,17 +102,19 @@ export default {
   }
 
   @media (min-width: $media-sm) {
-    width: 50%;
+    width: 320px;
+    top: 108px;
     min-height: calc(100vh - 108px);
 
     &::before {
       content: "";
       position: absolute;
-      height: 108px;
+      min-height: 100vh;
       width: 100%;
       top: -108px;
       right: 0;
       background-color: $light-gray;
+      box-shadow: -1px 0 5px 0 rgba($black, 50%);
     }
 
     &__item {
@@ -120,12 +122,8 @@ export default {
     }
   }
 
-  @media (min-width: $media-md) {
-    width: 57%;
-  }
-
   @media (min-width: $media-lg) {
-    width: 50%;
+    width: calc(15vw + 220px + 42px);
     min-height: calc(100vh - 124px);
 
     &::before {
@@ -145,6 +143,8 @@ export default {
   }
 
   @media (min-width: $media-xl) {
+    width: calc(20vw + 220px + 42px);
+
     &__item {
       padding-right: 20vw;
     }

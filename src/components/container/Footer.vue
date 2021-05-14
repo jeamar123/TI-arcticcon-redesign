@@ -113,7 +113,7 @@ export default {
     left: 0;
     height: 24px;
     width: 100%;
-    background-color: $yellow;
+    background-color: $blue;
   }
 
   &__logo {
