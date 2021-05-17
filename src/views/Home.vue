@@ -1,7 +1,7 @@
 <template>
   <div class="home-page">
     <Hero />
-    <About />
+    <About id="about" />
     <Apply />
     <Schedule />
     <Villages />

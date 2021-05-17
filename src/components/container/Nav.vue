@@ -4,6 +4,7 @@
     :class="{
       'nav--opened': isMobNavOpened,
       'nav--not-home': !isMainPage,
+      'nav--sticky': isNavSticky,
     }"
   >
     <router-link to="/">
@@ -30,6 +31,7 @@
 </template>
 
 <script>
+import { debounce } from "@/assets/js/utils";
 import NavMenu from "./NavMenu";
 
 export default {
@@ -40,6 +42,7 @@ export default {
   },
   data: () => ({
     isMobNavOpened: false,
+    isNavSticky: false,
     navLinks: [
       {
         name: "Home",
@@ -90,7 +93,27 @@ export default {
         : require("@/assets/img/ac-logo-white.png");
     },
   },
-  methods: {},
+  mounted() {
+    window.addEventListener("scroll", this.debouncedChecker());
+  },
+  methods: {
+    debounce,
+    detectIsAboutSectionVisible() {
+      const aboutSection = document
+        .getElementById("about")
+        .getBoundingClientRect();
+      const isAboutSectionVisible = aboutSection.top <= 100;
+
+      console.log("worked");
+      this.isNavSticky = isAboutSectionVisible || this.isMobNavOpened;
+    },
+    debouncedChecker() {
+      return this.debounce(this.detectIsAboutSectionVisible, 200);
+    },
+  },
+  beforeUnmount() {
+    window.removeEventListener("scroll", this.debouncedChecker());
+  },
 };
 </script>
 
@@ -110,6 +133,12 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  &--sticky {
+    position: fixed;
+    background-color: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(4px);
+  }
 
   &--opened,
   &--not-home {

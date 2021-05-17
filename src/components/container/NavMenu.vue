@@ -31,7 +31,7 @@ export default {
 
 .menu {
   position: fixed;
-  z-index: 10;
+  // z-index: 10;
   background-color: $light-gray;
   min-height: calc(100vh - 72px);
   top: 72px;
@@ -114,7 +114,7 @@ export default {
       top: -108px;
       right: 0;
       background-color: $light-gray;
-      box-shadow: -1px 0 5px 0 rgba($black, 50%);
+      box-shadow: -1px 0 5px 0 rgba($black, 30%);
     }
 
     &__item {
@@ -124,10 +124,8 @@ export default {
 
   @media (min-width: $media-lg) {
     width: calc(15vw + 220px + 42px);
-    min-height: calc(100vh - 124px);
 
     &::before {
-      top: -124px;
       height: 124px;
     }
 
