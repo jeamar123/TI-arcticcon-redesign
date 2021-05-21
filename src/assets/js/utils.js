@@ -11,3 +11,17 @@ export const transformForm = (formObj) => {
     return { ...acc, [cur]: formObj[cur].value };
   }, {});
 };
+
+export const debounce = (func, wait) => {
+  let isCooldown = false;
+
+  return function () {
+    if (isCooldown) return;
+
+    func.apply(this, arguments);
+
+    isCooldown = true;
+
+    setTimeout(() => (isCooldown = false), wait);
+  };
+};

@@ -255,6 +255,7 @@ export default {
 
   @media (min-width: $media-lg) {
     &::before {
+      top: 280px;
       width: calc(15vw + 150px);
     }
   }

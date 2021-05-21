@@ -4,6 +4,7 @@
     :class="{
       'nav--opened': isMobNavOpened,
       'nav--not-home': !isMainPage,
+      'nav--sticky': isNavSticky,
     }"
   >
     <router-link to="/">
@@ -30,6 +31,7 @@
 </template>
 
 <script>
+import { debounce } from "@/assets/js/utils";
 import NavMenu from "./NavMenu";
 
 export default {
@@ -40,42 +42,47 @@ export default {
   },
   data: () => ({
     isMobNavOpened: false,
+    isNavSticky: false,
     navLinks: [
       {
         name: "Home",
-        path: "/",
+        path: "home",
       },
       {
         name: "About ArcticCon",
-        path: "/#about",
+        path: "about",
       },
       {
         name: "Apply a talk",
-        path: "/#apply",
+        path: "apply",
       },
       {
         name: "Schedule",
-        path: "/#schedule",
+        path: "schedule",
       },
       {
         name: "Villages",
-        path: "/#villages",
+        path: "villages",
       },
       {
         name: "Volunteering",
-        path: "/#volunteering",
+        path: "volunteering",
       },
       {
         name: "Sponsors",
-        path: "/#sponsors",
+        path: "sponsors",
       },
       {
         name: "Tickets",
-        path: "/#tickets",
+        path: "tickets",
+      },
+      {
+        name: "Contacts",
+        path: "contacts",
       },
       {
         name: "Login",
-        path: "/login",
+        path: "login",
       },
     ],
   }),
@@ -89,8 +96,37 @@ export default {
         ? require("@/assets/img/ac-logo.png")
         : require("@/assets/img/ac-logo-white.png");
     },
+
+    currentView() {
+      return this.$route.name;
+    },
   },
-  methods: {},
+  mounted() {
+    window.addEventListener("scroll", this.debouncedChecker());
+  },
+  watch: {
+    currentView(value) {
+      if (value !== "Home") this.isMobNavOpened = false;
+    },
+  },
+  methods: {
+    debounce,
+    detectIsAboutSectionVisible() {
+      const screenHeight = window.screen.availHeight;
+      const scrolledPixels = Math.abs(
+        document.getElementById("container").getBoundingClientRect().top
+      );
+      const isFirstScreenScrolledOut = scrolledPixels >= screenHeight - 300;
+
+      this.isNavSticky = isFirstScreenScrolledOut || this.isMobNavOpened;
+    },
+    debouncedChecker() {
+      return this.debounce(this.detectIsAboutSectionVisible, 200);
+    },
+  },
+  beforeUnmount() {
+    window.removeEventListener("scroll", this.debouncedChecker());
+  },
 };
 </script>
 
@@ -110,6 +146,12 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  &--sticky {
+    position: fixed;
+    background-color: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(4px);
+  }
 
   &--opened,
   &--not-home {

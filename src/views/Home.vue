@@ -1,15 +1,15 @@
 <template>
   <div class="home-page">
-    <Hero />
-    <About />
-    <Apply />
-    <Schedule />
-    <Villages />
-    <Volunteering />
-    <Sponsors />
-    <Tickets />
+    <Hero id="home" />
+    <About id="about" />
+    <Apply id="apply" />
+    <Schedule id="schedule" />
+    <Villages id="villages" />
+    <Volunteering id="volunteering" />
+    <Sponsors id="sponsors" />
+    <Tickets id="tickets" />
     <Blog />
-    <ContactUs />
+    <ContactUs id="contacts" />
   </div>
 </template>
 

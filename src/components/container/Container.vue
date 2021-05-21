@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container" id="container">
     <Nav />
     <slot />
     <Footer class="container__footer" />
@@ -21,6 +21,16 @@ export default {
   computed: {
     hash() {
       return this.$route.hash.split("#")[1];
+    },
+  },
+  mounted() {
+    this.scrollToSection(this.hash);
+  },
+  watch: {
+    hash(val) {
+      this.$nextTick(() => {
+        this.scrollToSection(val);
+      });
     },
   },
   methods: {

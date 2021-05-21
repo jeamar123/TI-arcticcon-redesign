@@ -2,7 +2,7 @@
   <div class="menu">
     <ul class="menu__list">
       <li v-for="item in menu" :key="item.name" class="menu__item">
-        <router-link :to="item.path" class="menu__link">
+        <router-link :to="getLinkPath(item.path)" class="menu__link">
           {{ item.name }}
         </router-link>
       </li>
@@ -21,8 +21,16 @@ export default {
   },
   components: {},
   data: () => ({}),
-  computed: {},
-  methods: {},
+  computed: {
+    path() {
+      return this.$route.params.id ? `/${this.$route.params.id}` : "/";
+    },
+  },
+  methods: {
+    getLinkPath(itemPath) {
+      return itemPath === "login" ? "/login" : `${this.path}#${itemPath}`;
+    },
+  },
 };
 </script>
 
@@ -30,11 +38,11 @@ export default {
 @import "@/assets/scss/_variables";
 
 .menu {
-  position: absolute;
-  z-index: 3;
+  position: fixed;
+  // z-index: 10;
   background-color: $light-gray;
   min-height: calc(100vh - 72px);
-  top: 100%;
+  top: 72px;
   right: 0;
   width: 100%;
   padding-bottom: 100px;
@@ -46,7 +54,7 @@ export default {
     left: 0;
     height: 24px;
     width: 100%;
-    background-color: $yellow;
+    background-color: $blue;
   }
 
   &__list {
@@ -102,17 +110,19 @@ export default {
   }
 
   @media (min-width: $media-sm) {
-    width: 50%;
+    width: 320px;
+    top: 108px;
     min-height: calc(100vh - 108px);
 
     &::before {
       content: "";
       position: absolute;
-      height: 108px;
+      min-height: 100vh;
       width: 100%;
       top: -108px;
       right: 0;
       background-color: $light-gray;
+      box-shadow: -1px 0 5px 0 rgba($black, 30%);
     }
 
     &__item {
@@ -120,16 +130,10 @@ export default {
     }
   }
 
-  @media (min-width: $media-md) {
-    width: 57%;
-  }
-
   @media (min-width: $media-lg) {
-    width: 50%;
-    min-height: calc(100vh - 124px);
+    width: calc(15vw + 220px + 42px);
 
     &::before {
-      top: -124px;
       height: 124px;
     }
 
@@ -145,6 +149,8 @@ export default {
   }
 
   @media (min-width: $media-xl) {
+    width: calc(20vw + 220px + 42px);
+
     &__item {
       padding-right: 20vw;
     }

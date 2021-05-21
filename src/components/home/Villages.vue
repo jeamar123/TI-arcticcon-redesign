@@ -116,7 +116,6 @@ export default {
     background-repeat: no-repeat;
     transform: translate(0, 0);
     top: 105%;
-    z-index: 10;
 
     svg {
       display: none;
