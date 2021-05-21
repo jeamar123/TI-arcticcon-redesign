@@ -96,9 +96,18 @@ export default {
         ? require("@/assets/img/ac-logo.png")
         : require("@/assets/img/ac-logo-white.png");
     },
+
+    currentView() {
+      return this.$route.name;
+    },
   },
   mounted() {
     window.addEventListener("scroll", this.debouncedChecker());
+  },
+  watch: {
+    currentView(value) {
+      if (value !== "Home") this.isMobNavOpened = false;
+    },
   },
   methods: {
     debounce,
