@@ -99,13 +99,13 @@ export default {
   methods: {
     debounce,
     detectIsAboutSectionVisible() {
-      const aboutSection = document
-        .getElementById("about")
-        .getBoundingClientRect();
-      const isAboutSectionVisible = aboutSection.top <= 100;
+      const screenHeight = window.screen.availHeight;
+      const scrolledPixels = Math.abs(
+        document.getElementById("container").getBoundingClientRect().top
+      );
+      const isFirstScreenScrolledOut = scrolledPixels >= screenHeight - 300;
 
-      console.log("worked");
-      this.isNavSticky = isAboutSectionVisible || this.isMobNavOpened;
+      this.isNavSticky = isFirstScreenScrolledOut || this.isMobNavOpened;
     },
     debouncedChecker() {
       return this.debounce(this.detectIsAboutSectionVisible, 200);

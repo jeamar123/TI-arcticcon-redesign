@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container" id="container">
     <Nav />
     <slot />
     <Footer class="container__footer" />
