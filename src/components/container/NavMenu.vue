@@ -23,14 +23,12 @@ export default {
   data: () => ({}),
   computed: {
     path() {
-      return this.$route.params.event ? `/${this.$route.params.event}` : "/";
+      return this.$route.params.id ? `/${this.$route.params.id}` : "/";
     },
   },
   methods: {
     getLinkPath(itemPath) {
-      return itemPath === "login"
-        ? `${this.path}login`
-        : `${this.path}#${itemPath}`;
+      return itemPath === "login" ? "/login" : `${this.path}#${itemPath}`;
     },
   },
 };

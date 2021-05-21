@@ -28,7 +28,9 @@ export default {
   },
   watch: {
     hash(val) {
-      this.scrollToSection(val);
+      this.$nextTick(() => {
+        this.scrollToSection(val);
+      });
     },
   },
   methods: {
