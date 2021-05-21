@@ -1,44 +1,46 @@
 <template>
-  <section class="sponsors padding-x">
-    <Heading type="h2" text-align="center" class="sponsors__heading">
-      Gold Sponsors
-    </Heading>
-    <ul class="sponsors__list">
-      <li
-        v-for="sponsor in sponsors.gold"
-        :key="sponsor.vueKey"
-        class="sponsors__item"
-      >
-        <a href="#" class="sponsors__link">
-          <img
-            src="@/assets/img/sponsor-sample.png"
-            alt="sponsor logo"
-            class="sponsors__img"
-          />
-        </a>
-      </li>
-    </ul>
-  </section>
-  <section class="sponsors padding-x">
-    <Heading type="h2" text-align="center" class="sponsors__heading">
-      Silver Sponsors
-    </Heading>
-    <ul class="sponsors__list">
-      <li
-        v-for="sponsor in sponsors.silver"
-        :key="sponsor.vueKey"
-        class="sponsors__item"
-      >
-        <a href="#" class="sponsors__link">
-          <img
-            src="@/assets/img/sponsor-sample.png"
-            alt="sponsor logo"
-            class="sponsors__img"
-          />
-        </a>
-      </li>
-    </ul>
-  </section>
+  <div>
+    <section class="sponsors padding-x">
+      <Heading type="h2" text-align="center" class="sponsors__heading">
+        Gold Sponsors
+      </Heading>
+      <ul class="sponsors__list">
+        <li
+          v-for="sponsor in sponsors.gold"
+          :key="sponsor.vueKey"
+          class="sponsors__item"
+        >
+          <a href="#" class="sponsors__link">
+            <img
+              src="@/assets/img/sponsor-sample.png"
+              alt="sponsor logo"
+              class="sponsors__img"
+            />
+          </a>
+        </li>
+      </ul>
+    </section>
+    <section class="sponsors padding-x">
+      <Heading type="h2" text-align="center" class="sponsors__heading">
+        Silver Sponsors
+      </Heading>
+      <ul class="sponsors__list">
+        <li
+          v-for="sponsor in sponsors.silver"
+          :key="sponsor.vueKey"
+          class="sponsors__item"
+        >
+          <a href="#" class="sponsors__link">
+            <img
+              src="@/assets/img/sponsor-sample.png"
+              alt="sponsor logo"
+              class="sponsors__img"
+            />
+          </a>
+        </li>
+      </ul>
+    </section>
+  </div>
 </template>
 
 <script>

@@ -46,39 +46,43 @@ export default {
     navLinks: [
       {
         name: "Home",
-        path: "/",
+        path: "home",
       },
       {
         name: "About ArcticCon",
-        path: "/#about",
+        path: "about",
       },
       {
         name: "Apply a talk",
-        path: "/#apply",
+        path: "apply",
       },
       {
         name: "Schedule",
-        path: "/#schedule",
+        path: "schedule",
       },
       {
         name: "Villages",
-        path: "/#villages",
+        path: "villages",
       },
       {
         name: "Volunteering",
-        path: "/#volunteering",
+        path: "volunteering",
       },
       {
         name: "Sponsors",
-        path: "/#sponsors",
+        path: "sponsors",
       },
       {
         name: "Tickets",
-        path: "/#tickets",
+        path: "tickets",
+      },
+      {
+        name: "Contacts",
+        path: "contacts",
       },
       {
         name: "Login",
-        path: "/login",
+        path: "login",
       },
     ],
   }),

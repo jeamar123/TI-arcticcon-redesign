@@ -2,7 +2,7 @@
   <div class="menu">
     <ul class="menu__list">
       <li v-for="item in menu" :key="item.name" class="menu__item">
-        <router-link :to="item.path" class="menu__link">
+        <router-link :to="getLinkPath(item.path)" class="menu__link">
           {{ item.name }}
         </router-link>
       </li>
@@ -21,8 +21,18 @@ export default {
   },
   components: {},
   data: () => ({}),
-  computed: {},
-  methods: {},
+  computed: {
+    path() {
+      return this.$route.params.event ? `/${this.$route.params.event}` : "/";
+    },
+  },
+  methods: {
+    getLinkPath(itemPath) {
+      return itemPath === "login"
+        ? `${this.path}login`
+        : `${this.path}#${itemPath}`;
+    },
+  },
 };
 </script>
 

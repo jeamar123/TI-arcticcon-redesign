@@ -23,6 +23,14 @@ export default {
       return this.$route.hash.split("#")[1];
     },
   },
+  mounted() {
+    this.scrollToSection(this.hash);
+  },
+  watch: {
+    hash(val) {
+      this.scrollToSection(val);
+    },
+  },
   methods: {
     scrollToSection(hash) {
       if (hash) {
