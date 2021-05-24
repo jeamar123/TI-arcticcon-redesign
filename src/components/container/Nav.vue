@@ -31,6 +31,7 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 import { debounce } from "@/assets/js/utils";
 import NavMenu from "./NavMenu";
 
@@ -87,6 +88,10 @@ export default {
     ],
   }),
   computed: {
+    ...mapGetters({
+      userName: "getUserName",
+    }),
+
     isMainPage() {
       return this.$route.fullPath === "/";
     },
@@ -107,6 +112,20 @@ export default {
   watch: {
     currentView(value) {
       if (value !== "Home") this.isMobNavOpened = false;
+    },
+    userName(val) {
+      if (val) {
+        const nawLinksNoLogin = this.navLinks.filter(
+          (link) => link.name !== "Login"
+        );
+        this.navLinks = [
+          ...nawLinksNoLogin,
+          {
+            name: "Log Out",
+            path: "logout",
+          },
+        ];
+      }
     },
   },
   methods: {

@@ -14,7 +14,7 @@ import Checkout from "../views/CheckoutPage.vue";
 import Blog from "../views/Blog.vue";
 import Join from "../views/Join.vue";
 
-const curId = "unicorncon2022";
+const curId = store.state.currentEventID;
 
 const routes = [
   {

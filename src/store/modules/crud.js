@@ -3,7 +3,7 @@ import axios from "axios";
 
 const baseUrl =
   process.env.NODE_ENV === "development"
-    ? "https://2hr71slmb1.execute-api.us-west-2.amazonaws.com/dev/"
+    ? "https://firlk1bo2h.execute-api.us-west-2.amazonaws.com/dev/"
     : "https://arctic-con.com/api/";
 
 axios.defaults.baseURL = baseUrl;
