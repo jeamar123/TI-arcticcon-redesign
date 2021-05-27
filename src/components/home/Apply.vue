@@ -1,5 +1,5 @@
 <template>
-  <SectionWithBg heading-position="left" class="apply">
+  <SectionWithBg heading-position="right" class="apply">
     <template #heading>
       Want to share your
       <br />

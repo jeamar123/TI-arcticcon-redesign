@@ -2,6 +2,7 @@
   <div class="home-page">
     <Hero :event="event" id="home" />
     <About id="about" />
+    <SponsorAcquire />
     <Apply id="apply" />
     <Schedule id="schedule" />
     <Villages id="villages" />
@@ -17,6 +18,7 @@
 import { mapActions, mapState } from "vuex";
 import Hero from "@/components/home/Hero";
 import About from "@/components/home/About";
+import SponsorAcquire from "@/components/home/SponsorAcquire";
 import Apply from "@/components/home/Apply";
 import Schedule from "@/components/home/Schedule/Schedule";
 import Villages from "@/components/home/Villages";
@@ -31,6 +33,7 @@ export default {
   components: {
     Hero,
     About,
+    SponsorAcquire,
     Apply,
     Schedule,
     Villages,
