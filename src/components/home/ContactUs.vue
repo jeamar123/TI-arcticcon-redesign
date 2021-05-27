@@ -3,36 +3,63 @@
     <SectionWithBg growing-body single-line-heading heading-position="left">
       <template #heading> Contact us </template>
       <template #body>
-        <form @submit.prevent="submitContactUs" class="contact-us__form">
-          <Input
-            v-for="(field, name) in form"
-            :key="name"
-            v-model="field.value"
-            :error="field.error"
-            :name="name"
-            :label="field.label"
-            :is-multiline="field.isMultiline"
-            type="text"
-            @input="clearError(name, form)"
-            @blur="validateField(name, form)"
-          />
-          <Button class="contact-us__button mt-4"> submit </Button>
-        </form>
+        <div class="contact-us__body">
+          <transition name="fade">
+            <FormSuccess v-if="isFormSent">
+              Thank you for contacting us! We will respond you as soon as
+              possible!
+            </FormSuccess>
+          </transition>
+          <transition name="fade">
+            <form
+              v-if="!isFormSent"
+              @submit.prevent="sendContactForm"
+              class="contact-us__form"
+            >
+              <Input
+                v-for="(field, name) in form"
+                :key="name"
+                v-model="field.value"
+                :error="field.error"
+                :name="name"
+                :label="field.label"
+                :is-multiline="field.isMultiline"
+                type="text"
+                @input="clearError(name, form)"
+                @blur="validateField(name, form)"
+              />
+              <Button class="contact-us__button mt-4 mb-2"> submit </Button>
+              <transition name="fade">
+                <Error v-if="hasError">
+                  <template #heading> Something went wrong </template>
+                  <template #body>
+                    Please try again or contact us at
+                    <a
+                      href="mailto:mailto:info@arctic-con.com"
+                      class="error__link"
+                    >
+                      mailto:info@arctic-con.com
+                    </a>
+                  </template>
+                </Error>
+              </transition>
+            </form>
+          </transition>
+        </div>
       </template>
     </SectionWithBg>
   </div>
 </template>
 
 <script>
-import { transformForm } from "@/assets/js/utils";
-import {
-  validateField,
-  validateForm,
-  clearError,
-} from "@/assets/js/validation";
+import { reactive } from "vue";
+import { validateField, clearError } from "@/assets/js/validation";
+import useSqsFormSend from "@/assets/js/composables/sqsFormSend";
 import SectionWithBg from "@/components/common/SectionWithBg";
 import Input from "@/components/common/Input";
 import Button from "@/components/common/Button";
+import FormSuccess from "@/components/common/FormSuccess";
+import Error from "@/components/common/Error";
 
 export default {
   name: "ContactUs",
@@ -41,9 +68,11 @@ export default {
     SectionWithBg,
     Input,
     Button,
+    FormSuccess,
+    Error,
   },
-  data: () => ({
-    form: {
+  setup() {
+    const form = reactive({
       name: {
         value: "",
         error: "",
@@ -63,18 +92,22 @@ export default {
         label: "Message",
         isMultiline: true,
       },
-    },
-  }),
-  computed: {},
-  methods: {
-    transformForm,
-    validateField,
-    validateForm,
-    clearError,
-    submitContactUs() {
-      // should probably be submitting form to CRM
-      // in old multipart/form manner
-    },
+    });
+
+    const { isFormSent, hasError, sendForm } = useSqsFormSend();
+
+    const sendContactForm = () => {
+      sendForm(form, "contact");
+    };
+
+    return {
+      form,
+      isFormSent,
+      hasError,
+      sendContactForm,
+      validateField,
+      clearError,
+    };
   },
 };
 </script>
@@ -92,14 +125,14 @@ export default {
   @media (min-width: $media-sm) {
     padding-top: 0;
 
-    &__form {
+    &__body {
       width: 100%;
       max-width: 382px;
     }
   }
 
   @media (min-width: $media-md) {
-    &__form {
+    &__body {
       max-width: 462px;
     }
   }

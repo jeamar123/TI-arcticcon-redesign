@@ -1,5 +1,5 @@
 <template>
-  <SectionWithBg heading-position="left" class="apply">
+  <SectionWithBg heading-position="right" class="apply">
     <template #heading>
       Want to share your
       <br />
@@ -12,7 +12,12 @@
         solution you implemented that others should see. Well, you are in luck!
         Call For Papers is now open. Click below to apply!
       </p>
-      <Button class="apply__button"> apply </Button>
+      <Button
+        class="apply__button"
+        @click="$router.push(`/${$route.params.id}/cfp`)"
+      >
+        apply
+      </Button>
     </template>
   </SectionWithBg>
 </template>

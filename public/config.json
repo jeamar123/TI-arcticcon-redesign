@@ -5,5 +5,6 @@
   "sentryID": "https://f5c513abfb7743179bfa0bca6fb0f9af@o209430.ingest.sentry.io/2224845",
   "freeTicketCode": "00000000",
   "currentEvent": "exploit",
-  "currentEmail": "info@exploitcon.com"
+  "currentEmail": "info@exploitcon.com",
+  "currentEventID": "unicorncon2022"
 }

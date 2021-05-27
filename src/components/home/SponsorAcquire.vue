@@ -1,38 +1,43 @@
 <template>
-  <SectionWithBg
-    heading-position="left"
-    single-line-heading
-    bigger-title-margin
-    growing-body
-    class="volunteering"
-  >
+  <SectionWithBg heading-position="left" class="sponsor-acquire">
     <template #heading>
-      Interested in <br />
-      volunteering?
+      <div class="sponsor-acquire__title">Do you want to join us?</div>
     </template>
     <template #body>
-      <div class="volunteering__body">
+      <div class="sponsor-acquire__body">
         <transition name="fade">
           <FormSuccess v-if="isFormSent">
-            Thank you for apply! We will contact you as soon as possible!
+            Thank you for aply! We will contact you as soon as possible!
           </FormSuccess>
         </transition>
         <transition name="fade">
           <form
             v-if="!isFormSent"
-            @submit.prevent="sendVolunteeringForm"
-            class="volunteering__form"
+            @submit.prevent="sendSponsorshipForm"
+            class="sponsor-acquire__form"
           >
-            <Input
-              v-model="form.email.value"
-              :error="form.email.error"
-              name="volunt-email"
-              label="Email"
-              type="text"
-              @input="clearError('email', form)"
-              @blur="validateField('email', form)"
-            />
-            <Button class="volunteering__button mt-4 mb-2"> submit </Button>
+            <div
+              v-for="(field, name) in form"
+              :key="name"
+              class="sponsor-acquire__input-container"
+            >
+              <Input
+                v-model="field.value"
+                :error="field.error"
+                :name="`sponsor-acquire-${name}`"
+                :label="field.label"
+                type="text"
+                @input="clearError(name, form)"
+                @blur="validateField(name, form)"
+              />
+              <div
+                v-if="!field.rules.includes('required')"
+                class="sponsor-acquire__optional"
+              >
+                Optional
+              </div>
+            </div>
+            <Button class="sponsor-acquire__button mb-2"> submit </Button>
             <transition name="fade">
               <Error v-if="hasError">
                 <template #heading> Something went wrong </template>
@@ -65,7 +70,7 @@ import { reactive } from "vue";
 import useSqsFormSend from "@/assets/js/composables/sqsFormSend";
 
 export default {
-  name: "Volunteering",
+  name: "SponsorAcquire",
   props: {},
   components: {
     SectionWithBg,
@@ -74,26 +79,40 @@ export default {
     FormSuccess,
     Error,
   },
+
   setup() {
     const form = reactive({
+      name: {
+        value: "",
+        error: "",
+        rules: ["required"],
+        label: "Name",
+      },
+      company: {
+        value: "",
+        error: "",
+        rules: [],
+        label: "Company",
+      },
       email: {
         value: "",
         error: "",
         rules: ["required", "email"],
+        label: "Email",
       },
     });
 
     const { isFormSent, hasError, sendForm } = useSqsFormSend();
 
-    const sendVolunteeringForm = () => {
-      sendForm(form, "volinteering");
+    const sendSponsorshipForm = () => {
+      sendForm(form, "sponsorship");
     };
 
     return {
       form,
       isFormSent,
       hasError,
-      sendVolunteeringForm,
+      sendSponsorshipForm,
       validateField,
       clearError,
     };
@@ -104,24 +123,38 @@ export default {
 <style lang="scss">
 @import "@/assets/scss/_variables";
 
-.volunteering {
-  margin-top: 32px;
+.sponsor-acquire {
+  &__input-container {
+    position: relative;
+  }
+
+  &__optional {
+    position: absolute;
+    right: 0;
+    bottom: -4px;
+    font-size: 0.9rem;
+    color: $gray;
+  }
 
   &__button {
     width: 100%;
   }
 
   @media (min-width: $media-sm) {
+    &__title {
+      max-width: 320px;
+    }
+
     &__body {
-      width: 100%;
-      max-width: 374px;
-      flex-grow: 1;
+      min-width: 380px;
+      max-width: 380px;
     }
   }
 
   @media (min-width: $media-md) {
     &__body {
-      max-width: 462px;
+      min-width: 480px;
+      max-width: 480px;
     }
   }
 }

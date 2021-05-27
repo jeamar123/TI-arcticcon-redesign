@@ -39,7 +39,6 @@ export default {
 
 .menu {
   position: fixed;
-  // z-index: 10;
   background-color: $light-gray;
   min-height: calc(100vh - 72px);
   top: 72px;

@@ -2,19 +2,29 @@
   <div class="hero padding-x">
     <div class="hero__wrapper">
       <Heading type="h1" class="mt-2 hero__heading">
-        ArcticCon Virtual 2020
+        {{ event?.name }}
       </Heading>
-      <p class="hero__text">Alaska's Information Security Conference</p>
+      <p class="hero__text">
+        {{ event?.description }}
+      </p>
       <div class="hero__box-wrapper">
         <div class="hero__box">
           <h5 class="hero__box-heading">When</h5>
-          <p class="hero__box-text">09:00 AM - 05:00 PM,OCT 29, 2020</p>
+          <p class="hero__box-text">
+            {{ confDate }}
+          </p>
         </div>
         <div class="hero__box">
           <h5 class="hero__box-heading">Where</h5>
-          <p class="hero__box-text">ArcticCon Virtual Conference Platform</p>
+          <p class="hero__box-text">
+            {{ event?.location?.name }}
+          </p>
         </div>
-        <Button @click="test" type="text" class="hero__button">
+        <Button
+          type="text"
+          class="hero__button"
+          @click="$router.push(`/${$route.params.id}/join`)"
+        >
           register
         </Button>
       </div>
@@ -28,16 +38,50 @@ import Button from "@/components/common/Button";
 
 export default {
   name: "Hero",
-  props: {},
+  props: {
+    event: {
+      type: Object,
+      default: () => ({}),
+    },
+  },
   components: {
     Heading,
     Button,
   },
   data: () => ({}),
-  computed: {},
+  computed: {
+    startTimeHours() {
+      return this.getTime(this.event.start, "time");
+    },
+    endTimeHours() {
+      return this.getTime(this.event.end, "time");
+    },
+    confDay() {
+      return this.getTime(this.event.start, "day");
+    },
+    confDate() {
+      return this.event?.start && this.event?.end
+        ? `${this.startTimeHours} - ${this.endTimeHours}, ${this.confDay}`
+        : "";
+    },
+  },
   methods: {
-    test() {
-      alert("test");
+    getTime(dateString, modifyer) {
+      const startDate = new Date(dateString);
+      const options =
+        modifyer === "time"
+          ? {
+              hour12: true,
+              hour: "2-digit",
+              minute: "2-digit",
+            }
+          : {
+              month: "short",
+              day: "2-digit",
+              year: "numeric",
+            };
+
+      return startDate.toLocaleString("en-US", options);
     },
   },
 };
@@ -67,6 +111,8 @@ export default {
 
   &__heading {
     margin-bottom: 8px;
+    overflow-wrap: break-word;
+    position: relative;
   }
 
   &__text {
