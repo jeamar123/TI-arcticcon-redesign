@@ -13,7 +13,7 @@
         <transition name="fade">
           <form
             v-if="!isFormSent"
-            @submit.prevent="submitSponsorAcquiring"
+            @submit.prevent="sendSponsorshipForm"
             class="sponsor-acquire__form"
           >
             <div
@@ -60,18 +60,14 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
-import { transformForm } from "@/assets/js/utils";
-import {
-  validateField,
-  validateForm,
-  clearError,
-} from "@/assets/js/validation";
+import { validateField, clearError } from "@/assets/js/validation";
 import SectionWithBg from "@/components/common/SectionWithBg";
 import Input from "@/components/common/Input";
 import Button from "@/components/common/Button";
 import FormSuccess from "@/components/common/FormSuccess";
 import Error from "@/components/common/Error";
+import { reactive } from "vue";
+import useSqsFormSend from "@/assets/js/composables/sqsFormSend";
 
 export default {
   name: "SponsorAcquire",
@@ -83,10 +79,9 @@ export default {
     FormSuccess,
     Error,
   },
-  data: () => ({
-    isFormSent: false,
-    hasError: false,
-    form: {
+
+  setup() {
+    const form = reactive({
       name: {
         value: "",
         error: "",
@@ -105,33 +100,22 @@ export default {
         rules: ["required", "email"],
         label: "Email",
       },
-    },
-  }),
-  computed: {},
-  methods: {
-    validateField,
-    validateForm,
-    clearError,
-    transformForm,
-    ...mapActions(["POST"]),
+    });
 
-    submitSponsorAcquiring() {
-      const isValid = this.validateForm(this.form);
-      if (!isValid) return;
+    const { isFormSent, hasError, sendForm } = useSqsFormSend();
 
-      const sponsorFormData = this.transformForm(this.form);
-      this.POST({
-        route: "form/sponsorship",
-        formRoute: true,
-        data: sponsorFormData,
-      })
-        .then(() => {
-          this.isFormSent = true;
-        })
-        .catch(() => {
-          this.hasError = true;
-        });
-    },
+    const sendSponsorshipForm = () => {
+      sendForm(form, "sponsorship");
+    };
+
+    return {
+      form,
+      isFormSent,
+      hasError,
+      sendSponsorshipForm,
+      validateField,
+      clearError,
+    };
   },
 };
 </script>
