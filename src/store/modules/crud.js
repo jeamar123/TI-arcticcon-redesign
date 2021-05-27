@@ -6,6 +6,9 @@ const baseUrl =
     ? "https://firlk1bo2h.execute-api.us-west-2.amazonaws.com/dev/"
     : "https://arctic-con.com/api/";
 
+const formBaseUrl =
+  "https://bv4uouonxi.execute-api.us-west-2.amazonaws.com/api/";
+
 axios.defaults.baseURL = baseUrl;
 
 const actions = {
@@ -24,6 +27,10 @@ const actions = {
   },
 
   POST(_, params) {
+    if (params.formRoute && process.env.NODE_ENV === "development") {
+      axios.defaults.baseURL = formBaseUrl;
+    }
+
     if (params.authed) {
       return Auth.currentSession().then((user) => {
         const token = user.idToken.jwtToken;
