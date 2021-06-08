@@ -24,6 +24,7 @@
                 :name="name"
                 :label="field.label"
                 :is-multiline="field.isMultiline"
+                :rows="3"
                 type="text"
                 @input="clearError(name, form)"
                 @blur="validateField(name, form)"
