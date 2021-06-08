@@ -38,6 +38,7 @@
                 @input="clearError(name, form)"
                 @blur="validateField(name, form)"
               />
+
               <div
                 v-if="!field.rules.includes('required')"
                 class="volunteering__optional"
