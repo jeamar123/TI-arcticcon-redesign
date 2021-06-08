@@ -23,16 +23,31 @@
             @submit.prevent="sendVolunteeringForm"
             class="volunteering__form"
           >
-            <Input
-              v-model="form.email.value"
-              :error="form.email.error"
-              name="volunt-email"
-              label="Email"
-              type="text"
-              @input="clearError('email', form)"
-              @blur="validateField('email', form)"
-            />
-            <Button class="volunteering__button mt-4 mb-2"> submit </Button>
+            <div
+              v-for="(field, name) in form"
+              :key="name"
+              class="volunteering__input-container"
+            >
+              <Input
+                v-model="field.value"
+                :error="field.error"
+                :name="`volunt-${name}`"
+                :label="field.label"
+                :type="field.type"
+                :selectOptions="field.selectOptions"
+                @input="clearError(name, form)"
+                @blur="validateField(name, form)"
+              />
+
+              <div
+                v-if="!field.rules.includes('required')"
+                class="volunteering__optional"
+              >
+                Optional
+              </div>
+            </div>
+
+            <Button class="volunteering__button mt-6 mb-2"> submit </Button>
             <transition name="fade">
               <Error v-if="hasError">
                 <template #heading> Something went wrong </template>
@@ -76,10 +91,40 @@ export default {
   },
   setup() {
     const form = reactive({
+      name: {
+        value: "",
+        error: "",
+        rules: ["required"],
+        label: "Name",
+        type: "text",
+      },
       email: {
         value: "",
         error: "",
         rules: ["required", "email"],
+        label: "Email",
+        type: "text",
+      },
+      interest: {
+        value: "",
+        error: "",
+        rules: ["required"],
+        label: "Interested Field",
+        type: "select",
+        selectOptions: [
+          "Registration",
+          "Setup or Teardown",
+          "Managing Villages",
+          "Managing Speaker Session",
+          "Any",
+        ],
+      },
+      message: {
+        value: "",
+        error: "",
+        rules: [],
+        label: "Message",
+        type: "text",
       },
     });
 
@@ -106,6 +151,18 @@ export default {
 
 .volunteering {
   margin-top: 32px;
+
+  &__input-container {
+    position: relative;
+  }
+
+  &__optional {
+    position: absolute;
+    right: 0;
+    bottom: -4px;
+    font-size: 0.9rem;
+    color: $gray;
+  }
 
   &__button {
     width: 100%;

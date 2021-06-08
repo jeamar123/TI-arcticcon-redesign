@@ -11,6 +11,7 @@
   >
     <div class="input__wrapper">
       <component
+        v-if="type != 'select'"
         :is="isMultiline ? 'textarea' : 'input'"
         :value.prop="modelValue"
         :placeholder="label"
@@ -21,6 +22,22 @@
         v-bind="$attrs"
         @input="$emit('update:modelValue', $event.target.value)"
       />
+      <component
+        v-if="type == 'select'"
+        :is="'select'"
+        :value.prop="modelValue"
+        :placeholder="label"
+        :id="name"
+        ref="inputRef"
+        class="input__control select"
+        v-bind="$attrs"
+        @input="$emit('update:modelValue', $event.target.value)"
+      >
+        <option value="" selected>{{ label }}</option>
+        <option v-for="(option, i) of selectOptions" :key="i">
+          {{ option }}
+        </option>
+      </component>
       <label :for="name" class="input__label">
         {{ label }}
       </label>
@@ -62,6 +79,16 @@ export default {
     rows: {
       type: [String, Number],
       default: 1,
+    },
+    type: {
+      type: String,
+      default: "text",
+      required: false,
+    },
+    selectOptions: {
+      type: Array,
+      default: () => [],
+      required: false,
     },
   },
   emits: ["update:modelValue"],
@@ -119,6 +146,10 @@ export default {
     line-height: 1.3;
     resize: none;
     font-family: $sarabun;
+
+    &.select {
+      padding-left: 28px;
+    }
 
     &:focus {
       outline: none;
