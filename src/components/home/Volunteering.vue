@@ -35,6 +35,8 @@
                 :label="field.label"
                 :type="field.type"
                 :selectOptions="field.selectOptions"
+                :isMultiline="field.isMultiline"
+                :rows="field.rows"
                 @input="clearError(name, form)"
                 @blur="validateField(name, form)"
               />
@@ -125,6 +127,8 @@ export default {
         rules: [],
         label: "Message",
         type: "text",
+        isMultiline: true,
+        rows: 3,
       },
     });
 
